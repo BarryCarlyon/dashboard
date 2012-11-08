@@ -17,7 +17,7 @@ class halo4challenges extends module
 					$html .= '<h3>' . $period_name . '</h3><ul>';
 					foreach ($challenges as $challenge) {
 						$html .= '<li>';
-						$html .= $challenge->ChallengeType . ' ' . $challenge->ChallengeName;
+						$html .= $challenge->ChallengeType . ': ' . $challenge->ChallengeName;
 						$html .= '<br />';
 						$html .= $challenge->ChallengeDescription;
 						// xp emblem day

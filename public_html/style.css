@@ -37,3 +37,12 @@ table {
 p {
 	margin: 3px 5px;
 }
+
+.col {
+	border: 1px solid #000;
+	float: left;
+	margin: 5px;
+}
+
+.error { border: 1px solid #FF0000; }
+.error_normal { backgound: #990000;}

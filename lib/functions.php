@@ -1,5 +1,9 @@
 <?php
 
+function columnRender($name, $width) {
+    return '<div class="col" id="' . $name . '" style="width: ' . $width . 'px;"></div>';
+}
+
 class module {
     function generate()
     {
@@ -22,22 +26,21 @@ class module {
             'normal'
         );
         $severity = $levels[$severity];
-        return '<div id="error" class="error_' . $severity . '">' . $message . '</div>';
+        return '<div id="error error_' . $severity . '">' . $message . '</div>';
     }
 
     // 4 hours
     protected function cache($url, $method = 'get', $max_age = 21600) {
-        $cache_path = __DIR__ . '/../cache/';
         $encoded = md5($url);
-        if (file_exists($cache_path . $encoded)) {
-            $time = filemtime($cache_path . $encoded);
+        if (file_exists(DASHBOARD_CACHE_PATH . $encoded)) {
+            $time = filemtime(DASHBOARD_CACHE_PATH . $encoded);
             if ( (time() - $max_age) < $time) {
-                return file_get_contents($cache_path . $encoded);
+                return file_get_contents(DASHBOARD_CACHE_PATH . $encoded);
             }
         }
         $data = $this->fetch($url, $method);
         if ($data) {
-            $fp = fopen($cache_path . $encoded, 'w');
+            $fp = fopen(DASHBOARD_CACHE_PATH . $encoded, 'w');
             fwrite($fp, $data);
             fclose($fp);
         }
