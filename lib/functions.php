@@ -11,7 +11,7 @@ class module {
         ' . $this->title . '
     </div>
     
-    <div class="ui-widget-content ui-corner-bottom" id="' . $this->id . '_content">
+    <div class="ui-widget-content ui-corner-bottom widget-content" id="' . $this->id . '_content">
         ' . (method_exists($this, 'content') ? $this->content() : '') . '
     </div>
 </div>';        
@@ -25,8 +25,23 @@ class module {
         return '<div id="error" class="error_' . $severity . '">' . $message . '</div>';
     }
 
-    protected function cache($url) {
-        
+    // 4 hours
+    protected function cache($url, $method = 'get', $max_age = 21600) {
+        $cache_path = __DIR__ . '/../cache/';
+        $encoded = md5($url);
+        if (file_exists($cache_path . $encoded)) {
+            $time = filemtime($cache_path . $encoded);
+            if ( (time() - $max_age) < $time) {
+                return file_get_contents($cache_path . $encoded);
+            }
+        }
+        $data = $this->fetch($url, $method);
+        if ($data) {
+            $fp = fopen($cache_path . $encoded, 'w');
+            fwrite($fp, $data);
+            fclose($fp);
+        }
+        return $data;
     }
 
     protected function fetch($url, $method = 'get')

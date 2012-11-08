@@ -8,7 +8,7 @@ class halo4challenges extends module
 	public function content() {
 		$url = 'http://halocharts.com/2012/json_challenges.php';
 		// pacific time
-		$data = $this->fetch($url);
+		$data = $this->cache($url);
 		if ($data) {
 			$data = json_decode($data);
 			if (json_last_error() == JSON_ERROR_NONE) {

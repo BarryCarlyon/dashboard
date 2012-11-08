@@ -6,6 +6,8 @@ html {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+/*
 .server_up {
 	background: #009900;
 }
@@ -18,6 +20,7 @@ html {
 .server_off {
 	background: #000099;
 }
+*/
 
 table {
 	text-align: center;
@@ -28,7 +31,9 @@ table {
 .ui-icon {
 	float: right;
 }
-
+.ui-widget-header, .widget-content {
+	padding: 10px;
+}
 p {
 	margin: 3px 5px;
 }
