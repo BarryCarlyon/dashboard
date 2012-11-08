@@ -51,8 +51,7 @@ switch ($do) {
         $fp = fopen(DASHBOARD_CACHE_PATH . 'columns.json', 'w');
         fwrite($fp, $columns);
         fclose($fp);
-        $render = columnRender($_GET['name'], $_GET['width']);
-        echo 'jQuery(\'#' . $_GET['name'] . '\').replaceWith(\'' . $render . '\')';
+        echo 'jQuery(\'#' . $_GET['name'] . '\').animate({width: ' . $_GET['width'] . '})';
         break;
     case 'deleteColumn':
         $col = $_GET['name'];
