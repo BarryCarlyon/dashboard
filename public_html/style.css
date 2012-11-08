@@ -43,7 +43,7 @@ hr { border: 0px; display: block; clear: both; }
 .error { border: 1px solid #FF0000; }
 .error_normal { backgound: #990000;}
 
-#controller, .col_control {
+#controller, .col_control, #widget_source {
     position: absolute;
     border: 1px solid #000000;
     margin: 0px;
@@ -68,3 +68,12 @@ hr { border: 0px; display: block; clear: both; }
     width: 100px;
 }
 #controller ul { margin-top: 10px; }
+#widget_source {
+    -webkit-border-radius: 10px 10px 0px 0px;
+    border-radius: 10px 10px 0px 0px;
+    bottom: 0px;
+    width: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+    min-height: 1em;
+}

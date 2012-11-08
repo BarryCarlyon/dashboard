@@ -36,7 +36,6 @@ jQuery(document).ready(function() {
         }
     });
     jQuery(document).on('click', '.delete_col', function() {
-        console.log('clicked');
         var name = jQuery(this).closest('.col').attr('id');
         if (name) {
             jQuery(this).append('<div class="loading">Loading</div>');
@@ -46,6 +45,13 @@ jQuery(document).ready(function() {
         }
     });
 
+    jQuery('#widget_source .widgets').slideUp();
+    jQuery('#widget_source').on('mouseenter', function() {
+        jQuery(this).find('.widgets').slideDown();
+    });
+    jQuery('#widget_source').on('mouseleave', function() {
+        jQuery(this).find('.widgets').slideUp();
+    });
 
     jQuery('.module .ui-widget-header').prepend( "<span class='ui-icon ui-icon-minusthick'></span>")
     jQuery('.col').sortable({

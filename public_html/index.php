@@ -6,78 +6,7 @@ define('DASHBOARD_CACHE_PATH', __DIR__ . '/../cache/');
 define('DASHBOARD_URL_ROOT', $_SERVER['REQUEST_URI']);
 define('DASHBOARD_URL_MODULES', $_SERVER['REQUEST_URI'] . 'modules/');
 
-$do = isset($_GET['do']) ? $_GET['do'] : false;
-switch ($do) {
-    case 'addColumn':
-        $col = array(
-            '',
-            $_GET['width']
-        );
-        if (!is_file(DASHBOARD_CACHE_PATH . 'columns.json')) {
-            $columns = array();
-        } else {
-            $columns = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'columns.json'), TRUE);
-            if (!is_array($columns)) {
-                $columns = array();
-            }
-        }
-        $col[0] = 'col_' . (count($columns) + 1);
-        $columns[] = $col;
-        $columns = json_encode($columns);
-        $fp = fopen(DASHBOARD_CACHE_PATH . 'columns.json', 'w');
-        fwrite($fp, $columns);
-        fclose($fp);
-        echo columnRender($col[0], $_GET['width']);
-        break;
-    case 'changeColumn':
-        $col = array(
-            $_GET['name'],
-            $_GET['width']
-        );
-        if (!is_file(DASHBOARD_CACHE_PATH . 'columns.json')) {
-            $columns = array();
-        } else {
-            $columns = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'columns.json'), TRUE);
-            if (!is_array($columns)) {
-                $columns = array();
-            }
-        }
-        foreach ($columns as &$column) {
-            if ($column[0] == $col[0]) {
-                $column = $col;
-            }
-        }
-        $columns = json_encode($columns);
-        $fp = fopen(DASHBOARD_CACHE_PATH . 'columns.json', 'w');
-        fwrite($fp, $columns);
-        fclose($fp);
-        echo 'jQuery(\'#' . $_GET['name'] . '\').animate({width: ' . $_GET['width'] . '})';
-        break;
-    case 'deleteColumn':
-        $col = $_GET['name'];
-        if (!is_file(DASHBOARD_CACHE_PATH . 'columns.json')) {
-            $columns = array();
-        } else {
-            $columns = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'columns.json'), TRUE);
-            if (!is_array($columns)) {
-                $columns = array();
-            }
-        }
-        foreach ($columns as $index =>$column) {
-            if ($column[0] == $col) {
-                unset($columns[$index]);
-            }
-        }
-        $columns = json_encode($columns);
-        $fp = fopen(DASHBOARD_CACHE_PATH . 'columns.json', 'w');
-        fwrite($fp, $columns);
-        fclose($fp);
-        echo 'jQuery(\'#' . $_GET['name'] . '\').slideUp(function() {jQuery(this).remove()});';
-        break;
-}
-if ($do) {
-    exit;
-}
+include(__DIR__ . '/../lib/ajax.php');
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-gb" xml:lang="en-gb">
@@ -94,6 +23,7 @@ if ($do) {
     </script>
 <?php
 
+$widgets = array();
 $body = '';
 // module load
 $dir = new FilesystemIterator(__DIR__ . '/modules/');
@@ -101,8 +31,9 @@ foreach ($dir as $path => $fileinfo) {
     if ($fileinfo->isDir()) {
         $base = basename($path);
         include($path . '/' . $base . '.php');
-        $widget = new $base();
-        $body .= $widget->generate();
+        $widgets[$base] = $base::title;
+//        $widget = new $base();
+//        $body .= $widget->generate();
     }
 }
 
@@ -128,5 +59,18 @@ if (is_array($columns)) {
     }
 }
 ?>
+<div id="widget_source" class="col">
+<p>Widgets</p>
+<div class="widgets">
+<?php
+
+for ($x=0;$x<10;$x++) {
+    echo $x;
+    echo '<br />';
+}
+
+?>
+</div>
+</div>
 </body>
 </html>
