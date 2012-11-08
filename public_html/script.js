@@ -1,4 +1,19 @@
 jQuery(document).ready(function() {
+    jQuery('#controller ul').slideUp();
+    jQuery('#controller').hover(function() {
+        jQuery(this).find('ul').slideDown();
+    }, function() {
+        jQuery(this).find('ul').slideUp();
+    });
+
+    jQuery('.col_control ul').slideUp();
+    jQuery('.col_control').on('mouseenter', function() {
+        jQuery(this).find('ul').slideDown();
+    });
+    jQuery('.col_control').on('mouseleave', function() {
+        jQuery(this).find('ul').slideUp();
+    });
+
     jQuery('.create_column').click(function() {
         var width = prompt('Width?');
         if (width) {
@@ -6,10 +21,11 @@ jQuery(document).ready(function() {
             jQuery.get('?do=addColumn&width=' + width, function(data) {
                 jQuery('.loading').remove();
                 jQuery(data).appendTo('body');
+                jQuery('.col_control ul').slideUp();
             });
         }
     });
-    jQuery('.change_col').live('click', function() {
+    jQuery(document).on('click', '.change_col', function() {
         var name = jQuery(this).closest('.col').attr('id');
         var width = prompt('Width?');
         if (name && width) {
@@ -19,7 +35,8 @@ jQuery(document).ready(function() {
             });
         }
     });
-    jQuery('.delete_col').live('click', function() {
+    jQuery(document).on('click', '.delete_col', function() {
+        console.log('clicked');
         var name = jQuery(this).closest('.col').attr('id');
         if (name) {
             jQuery(this).append('<div class="loading">Loading</div>');

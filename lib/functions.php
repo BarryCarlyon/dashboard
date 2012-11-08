@@ -2,10 +2,10 @@
 
 function columnRender($name, $width) {
     return '<div class="col" id="' . $name . '" style="width: ' . $width . 'px;">'
-        . '<ul class="col_control">'
+        . '<hr /><div class="col_control"><ul>'
         . '<li class="change_col">Change</li>'
         . '<li class="delete_col">Delete</li>'
-        . '</ul></div>';
+        . '</ul>Control</div><hr /></div>';
 }
 
 class module {
