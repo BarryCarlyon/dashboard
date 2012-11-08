@@ -1,7 +1,11 @@
 <?php
 
 function columnRender($name, $width) {
-    return '<div class="col" id="' . $name . '" style="width: ' . $width . 'px;"></div>';
+    return '<div class="col" id="' . $name . '" style="width: ' . $width . 'px;">'
+        . '<ul class="col_control">'
+        . '<li class="change_col">Change</li>'
+        . '<li class="delete_col">Delete</li>'
+        . '</ul></div>';
 }
 
 class module {
