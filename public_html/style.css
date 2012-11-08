@@ -1,0 +1,34 @@
+* {
+	font-family: Verdana;
+}
+html {
+	width: 1430px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.server_up {
+	background: #009900;
+}
+.server_down {
+	background: #990000;
+}
+.server_warn {
+	background: #999900;
+}
+.server_off {
+	background: #000099;
+}
+
+table {
+	text-align: center;
+}
+.module {
+	margin: 10px 0px;
+}
+.ui-icon {
+	float: right;
+}
+
+p {
+	margin: 3px 5px;
+}
