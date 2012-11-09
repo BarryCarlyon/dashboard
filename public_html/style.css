@@ -1,26 +1,9 @@
-* {
-    font-family: Verdana;
-}
+* { font-family: Verdana; }
 html {
     width: 1430px;
     margin-left: auto;
     margin-right: auto;
 }
-
-/*
-.server_up {
-    background: #009900;
-}
-.server_down {
-    background: #990000;
-}
-.server_warn {
-    background: #999900;
-}
-.server_off {
-    background: #000099;
-}
-*/
 
 table { text-align: center; }
 .module { margin: 10px 0px; }
@@ -36,7 +19,7 @@ ul, li { list-style: none; margin: 0px; padding: 0px; }
     position: relative;
     min-width: 100px;
     min-height: 100px;
-    padding: 5px 5px 80px 5px;
+    padding: 5px 5px 25px 5px;
 }
 hr { border: 0px; display: block; clear: both; }
 
@@ -67,9 +50,12 @@ hr { border: 0px; display: block; clear: both; }
     bottom: 0px;
     right: 3px;
     width: 100px;
+    background: #FFFFFF;
 }
 #controller ul { margin-top: 10px; }
+#controller ul li { cursor: pointer; }
 #widget_source {
+    border-bottom: 0px;
     -webkit-border-radius: 10px 10px 0px 0px;
     border-radius: 10px 10px 0px 0px;
     bottom: 0px;
@@ -77,6 +63,7 @@ hr { border: 0px; display: block; clear: both; }
     margin-left: 5px;
     margin-right: 5px;
     min-height: 1em;
+    cursor: pointer;
 }
 
 .ui-state-highlight {
@@ -84,3 +71,15 @@ hr { border: 0px; display: block; clear: both; }
     height: 1em;
     background: orange;
 }
+
+.change_col, .delete_col {
+    width: 16px;
+    height: 0px;
+    padding-top: 16px;
+    overflow: hidden;
+    display: inline-block;
+    margin: 0px 1px;
+    cursor: pointer;
+}
+.change_col { background: url('icons/edit.png'); }
+.delete_col { background: url('icons/delete.png'); }
