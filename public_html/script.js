@@ -51,12 +51,6 @@ jQuery(document).ready(function() {
         }
     });
 
-//    jQuery(document).on('click', '.delete-icon', function() {
-//        jQuery(this).parents('.module').remove();
-//        jQuery.get('?do=killWidget&widget=' + jQuery(this).parents('.module').attr('id'), function(data) {});
-//    });
-
-//    <span class='ui-icon delete-icon'></span>")
     jQuery('.module .ui-widget-header').prepend( "<span class='ui-icon ui-icon-minusthick'></span>")
     jQuery('.module .ui-icon').click(function() {
         jQuery(this).toggleClass('ui-icon-minusthick').toggleClass('ui-icon-plusthick');
@@ -72,7 +66,7 @@ function regen() {
     jQuery('.col_control').on('mouseleave', function() {
         jQuery(this).find('ul').slideUp();
     });
-    
+
     jQuery('.col').sortable({
         connectWith:    '.col',
         items:          '.module',
@@ -90,7 +84,7 @@ function regen() {
                     jQuery('#'+name+' .module_content').html(data);
                 });
             } else {
-                jQuery('#'+name+' .module_content').html('');
+                jQuery('#'+name+' .widget-content').replaceWith('<div class="module_content"></div>');
                 jQuery.get('?do=killWidget&widget=' + name, function(data) {});
             }
         }
