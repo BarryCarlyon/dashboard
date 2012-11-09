@@ -9,20 +9,34 @@ function columnRender($name, $width) {
 }
 
 class module {
-    function generate()
+    public function generate()
     {
-        if (method_exists($this, 'header')) {
-            echo $this->header();
-        }
         return '<div class="ui-widget ui-widget-content ui-corner-all module" id="' . $this->id . '_widget">
     <div class="ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
         ' . $this->title . '
     </div>
     
     <div class="ui-widget-content ui-corner-bottom widget-content" id="' . $this->id . '_content">
+        ' . (method_exists($this, 'header') ? $this->header() : '') . '
         ' . (method_exists($this, 'content') ? $this->content() : '') . '
     </div>
-</div>';        
+</div>';
+    }
+    public function titleOnly()
+    {
+        return '<div class="ui-widget ui-widget-content ui-corner-all module" id="' . $this->id . '_widget">
+    <div class="ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+        ' . $this->title . '
+    </div>
+    <div class="module_content"></div>
+</div>';
+    }
+    public function bodyOnly() {
+        return '
+    <div class="ui-widget-content ui-corner-bottom widget-content" id="' . $this->id . '_content">
+        ' . (method_exists($this, 'header') ? $this->header() : '') . '
+        ' . (method_exists($this, 'content') ? $this->content() : '') . '
+    </div>';
     }
 
     protected function error($message, $severity = 0) {

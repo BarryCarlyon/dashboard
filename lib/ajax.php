@@ -72,6 +72,10 @@ switch ($do) {
         break;
 
     // render it
+    case 'loadWidget':
+        $widget = str_replace('_widget', '', $_GET['widget']);
+        echo $widgets[$widget]->bodyOnly();
+        break;
 }
 if ($do) {
     exit;

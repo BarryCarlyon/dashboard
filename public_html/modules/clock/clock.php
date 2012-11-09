@@ -3,7 +3,7 @@
 class clock extends module
 {
 	public $id = 'clock';
-	const title = 'Clock';
+	public $title = 'Clock';
 
 	public function header() {
 		$header = '

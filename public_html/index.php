@@ -3,8 +3,21 @@
 include(__DIR__ . '/../lib/functions.php');
 
 define('DASHBOARD_CACHE_PATH', __DIR__ . '/../cache/');
-define('DASHBOARD_URL_ROOT', $_SERVER['REQUEST_URI']);
-define('DASHBOARD_URL_MODULES', $_SERVER['REQUEST_URI'] . 'modules/');
+define('DASHBOARD_URL_ROOT', str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
+define('DASHBOARD_URL_MODULES', DASHBOARD_URL_ROOT . 'modules/');
+define('DASHBOARD_MODULES_PATH', __DIR__ . '/modules/');
+
+$widgets = array();
+$body = '';
+// module load
+$dir = new FilesystemIterator(DASHBOARD_MODULES_PATH);
+foreach ($dir as $path => $fileinfo) {
+    if ($fileinfo->isDir()) {
+        $base = basename($path);
+        include($path . '/' . $base . '.php');
+        $widgets[$base] = new $base();
+    }
+}
 
 include(__DIR__ . '/../lib/ajax.php');
 
@@ -12,8 +25,8 @@ include(__DIR__ . '/../lib/ajax.php');
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-gb" xml:lang="en-gb">
 <head>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/ui-darkness/jquery-ui.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/ui-darkness/jquery-ui.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <link rel="stylesheet" type="text/css" href="style.css" />
@@ -21,23 +34,6 @@ include(__DIR__ . '/../lib/ajax.php');
     <script type="text/javascript">
         google.load('visualization', '1', {packages: ['corechart']});
     </script>
-<?php
-
-$widgets = array();
-$body = '';
-// module load
-$dir = new FilesystemIterator(__DIR__ . '/modules/');
-foreach ($dir as $path => $fileinfo) {
-    if ($fileinfo->isDir()) {
-        $base = basename($path);
-        include($path . '/' . $base . '.php');
-        $widgets[$base] = $base::title;
-//        $widget = new $base();
-//        $body .= $widget->generate();
-    }
-}
-
-?>
 </head>
 <body>
 <div id="controller">
@@ -60,13 +56,12 @@ if (is_array($columns)) {
 }
 ?>
 <div id="widget_source" class="col">
-<p>Widgets</p>
+<p class="title">Widgets</p>
 <div class="widgets">
 <?php
 
-for ($x=0;$x<10;$x++) {
-    echo $x;
-    echo '<br />';
+foreach ($widgets as $base => $class) {
+    echo $class->titleOnly();
 }
 
 ?>

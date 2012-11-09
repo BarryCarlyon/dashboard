@@ -46,21 +46,36 @@ jQuery(document).ready(function() {
     });
 
     jQuery('#widget_source .widgets').slideUp();
-    jQuery('#widget_source').on('mouseenter', function() {
-        jQuery(this).find('.widgets').slideDown();
-    });
-    jQuery('#widget_source').on('mouseleave', function() {
-        jQuery(this).find('.widgets').slideUp();
+    jQuery('#widget_source .title').click(function() {
+        if (jQuery(this).hasClass('isopen')) {
+            jQuery('#widget_source .widgets').slideUp();
+            jQuery(this).removeClass('isopen');
+        } else {
+            jQuery('#widget_source .widgets').slideDown();
+            jQuery(this).addClass('isopen');
+        }
     });
 
     jQuery('.module .ui-widget-header').prepend( "<span class='ui-icon ui-icon-minusthick'></span>")
+
     jQuery('.col').sortable({
         connectWith:    '.col',
         items:          '.module',
         placeholder:    'ui-state-highlight',
-        containment:    '#content',
-        grid:           [25, 25]
-    });
+        grid:           [25, 25],
+        dropOnEmpty:    true,
+        helper:         function() {
+            return '<div class="ui-state-highlight">&nbsp;</div>'
+            //'clone',
+        },
+        stop:           function(event, ui) {
+            var name = jQuery(ui.item).attr('id');
+            jQuery.get('?do=loadWidget&widget=' + name, function(data) {
+                jQuery('#'+name+' .module_content').replaceWith(data);
+            });
+        }
+    }).disableSelection();
+
     jQuery('.module .ui-icon').click(function() {
         jQuery(this).toggleClass('ui-icon-minusthick').toggleClass('ui-icon-plusthick');
         jQuery(this).parents('.module').find('.ui-widget-content').toggle();
