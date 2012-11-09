@@ -1,12 +1,12 @@
 <?php
 
-include(__DIR__ . '/../lib/functions.php');
-
 define('DASHBOARD_CACHE_PATH', __DIR__ . '/../cache/');
 define('DASHBOARD_URL_ROOT', str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
 define('DASHBOARD_URL_MODULES', DASHBOARD_URL_ROOT . 'modules/');
 define('DASHBOARD_MODULES_PATH', __DIR__ . '/modules/');
 define('DASHBOARD_LIB_PATH', __DIR__ . '/../lib/');
+
+include(DASHBOARD_LIB_PATH . 'functions.php');
 
 $widgets = array();
 $body = '';
@@ -57,7 +57,12 @@ if (is_array($columns)) {
             $col_widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column/' . $col[0] . '.json'), TRUE);
             foreach ((array)$col_widgets as $col_widget) {
                 $col_widget = str_replace('_widget', '', $col_widget);
-                $content .= $widgets[$col_widget]->generate();
+                if (isset($widgets[$col_widget])) {
+                    $content .= $widgets[$col_widget]->generate();
+                } else {
+                    $col_widget = str_replace('_closed', '', $col_widget);
+                    $content .= $widgets[$col_widget]->generate(TRUE);
+                }
                 unset($widgets[$col_widget]);
             }
         }

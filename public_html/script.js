@@ -51,10 +51,16 @@ jQuery(document).ready(function() {
         }
     });
 
-    jQuery('.module .ui-widget-header').prepend( "<span class='ui-icon ui-icon-minusthick'></span>")
+//    jQuery('.module .ui-widget-header').prepend( "<span class='ui-icon ui-icon-minusthick'></span>")
     jQuery('.module .ui-icon').click(function() {
         jQuery(this).toggleClass('ui-icon-minusthick').toggleClass('ui-icon-plusthick');
         jQuery(this).parents('.module').find('.ui-widget-content').toggle();
+
+        var name = jQuery(this).closest('.module').attr('id');
+        var parent = jQuery(this).closest('.col').attr('id');
+
+        jQuery.get('?do=toggleWidget&widget=' + name + '&parent=' + parent);
+
     });
     regen();
 });

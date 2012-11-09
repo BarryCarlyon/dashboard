@@ -9,24 +9,26 @@ function columnRender($name, $width, $content = '') {
 }
 
 class module {
-    public function generate()
+    public function generate($closed = false)
     {
-        return '<div class="ui-widget ui-widget-content ui-corner-all module" id="' . $this->id . '_widget">
+        return '<div class="ui-widget ui-widget-content ui-corner-all module" id="' . $this->id . '_' . ($closed ? 'closed' : 'widget') . '">
     <div class="ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
         ' . $this->title . '
+        <span class="ui-icon ui-icon-' . ($closed ? 'plus' : 'minus') . 'thick"></span>
     </div>
     
-    <div class="ui-widget-content ui-corner-bottom widget-content" id="' . $this->id . '_content">
+    <div class="ui-widget-content ui-corner-bottom widget-content" id="' . $this->id . '_content" style="display: ' . ($closed ? 'none' : 'block') . ';">
         ' . (method_exists($this, 'header') ? $this->header() : '') . '
         ' . (method_exists($this, 'content') ? $this->content() : '') . '
     </div>
 </div>';
     }
-    public function titleOnly()
+    public function titleOnly($closed = false)
     {
         return '<div class="ui-widget ui-widget-content ui-corner-all module" id="' . $this->id . '_widget">
     <div class="ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
         ' . $this->title . '
+        <span class="ui-icon ui-icon-' . ($closed ? 'plus' : 'minus') . 'thick"></span>
     </div>
     <div class="module_content"></div>
 </div>';

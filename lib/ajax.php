@@ -95,6 +95,7 @@ switch ($do) {
         $widget = str_replace('_widget', '', $_GET['widget']);
         $widget = new $widget();
         echo $widget->bodyOnly();
+
         $parent = $_GET['parent'];
         if (!is_file(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json')) {
             $widgets = array();
@@ -131,6 +132,25 @@ switch ($do) {
                 fclose($fp);
             }
         }
+        break;
+
+    case 'toggleWidget':
+        $parent = $_GET['parent'];
+        $toggle = $_GET['widget'];
+        $widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json'), TRUE);
+        foreach ($widgets as &$widget) {
+            if ($widget == $toggle) {
+                // change it
+                $widget = str_replace('_closed', '_open', $widget);
+                $widget = str_replace('_widget', '_closed', $widget);
+                $widget = str_replace('_open', '_widget', $widget);
+            }
+        }
+        $widgets = json_encode($widgets);
+        $fp = fopen(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json', 'w');
+        fwrite($fp, $widgets);
+        fclose($fp);
+        break;
 }
 if ($do) {
     exit;
