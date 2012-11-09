@@ -66,14 +66,17 @@ jQuery(document).ready(function() {
         dropOnEmpty:    true,
         helper:         function() {
             return '<div class="ui-state-highlight">&nbsp;</div>'
-            //'clone',
         },
         stop:           function(event, ui) {
             var name = jQuery(ui.item).attr('id');
+            var parent = jQuery(ui.item).parent('.col').attr('id');
             if (!jQuery('#widget_source').find(ui.item).length) {
-                jQuery.get('?do=loadWidget&widget=' + name, function(data) {
-                    jQuery('#'+name+' .module_content').replaceWith(data);
+                jQuery.get('?do=loadWidget&widget=' + name + '&parent=' + parent, function(data) {
+                    jQuery('#'+name+' .module_content').html(data);
                 });
+            } else {
+                jQuery('#'+name+' .module_content').html('');
+                jQuery.get('?do=killWidget&widget=' + name, function(data) {});
             }
         }
     }).disableSelection();

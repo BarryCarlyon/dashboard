@@ -75,7 +75,42 @@ switch ($do) {
     case 'loadWidget':
         $widget = str_replace('_widget', '', $_GET['widget']);
         echo $widgets[$widget]->bodyOnly();
+        $parent = $_GET['parent'];
+        if (!is_file(DASHBOARD_CACHE_PATH . 'column_' . $widget . '.json')) {
+            $widgets = array();
+        } else {
+            $widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column_' . $widget . '.json'), TRUE);
+            if (!is_array($widgets)) {
+                $widgets = array();
+            }
+        }
+        $widgets[] = $_GET['widget'];
+        $widgets = array_unique($widgets);
+        $widgets = json_encode($widgets);
+        $fp = fopen(DASHBOARD_CACHE_PATH . 'column_' . $widget . '.json', 'w');
+        fwrite($fp, $widgets);
+        fclose($fp);
         break;
+
+    case 'killWidget':
+        $parent = $_GET['parent'];
+        if (!is_file(DASHBOARD_CACHE_PATH . 'column_' . $widget . '.json')) {
+            $widgets = array();
+        } else {
+            $widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column_' . $widget . '.json'), TRUE);
+            if (!is_array($widgets)) {
+                $widgets = array();
+            }
+        }
+        foreach ($widgets as $index => $widget) {
+            if ($widget == $_GET['widget']) {
+                unset($widgets[$index]);
+            }
+        }
+        $widgets = json_encode($widgets);
+        $fp = fopen(DASHBOARD_CACHE_PATH . 'column_' . $widget . '.json', 'w');
+        fwrite($fp, $widgets);
+        fclose($fp);
 }
 if ($do) {
     exit;
