@@ -42,6 +42,7 @@ hr { border: 0px; display: block; clear: both; }
     -webkit-border-radius: 0px 0px 10px 10px;
     border-radius: 0px 0px 10px 10px;
     border-top: 0px;
+    background: #FFFFFF;
 }
 .col_control {
     border-bottom: 0px;

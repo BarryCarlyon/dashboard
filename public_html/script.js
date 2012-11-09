@@ -7,12 +7,6 @@ jQuery(document).ready(function() {
     });
 
     jQuery('.col_control ul').slideUp();
-    jQuery('.col_control').on('mouseenter', function() {
-        jQuery(this).find('ul').slideDown();
-    });
-    jQuery('.col_control').on('mouseleave', function() {
-        jQuery(this).find('ul').slideUp();
-    });
 
     jQuery('.create_column').click(function() {
         var width = prompt('Width?');
@@ -72,6 +66,13 @@ jQuery(document).ready(function() {
 });
 
 function regen() {
+    jQuery('.col_control').on('mouseenter', function() {
+        jQuery(this).find('ul').slideDown();
+    });
+    jQuery('.col_control').on('mouseleave', function() {
+        jQuery(this).find('ul').slideUp();
+    });
+    
     jQuery('.col').sortable({
         connectWith:    '.col',
         items:          '.module',
