@@ -27,7 +27,6 @@ class facebookpushstatus extends module {
 					$html .= '</tr>';
 				}
 				$html .= '</table>';
-//				$html .= '<pre>'.print_r($data,true).'</pre>';
 				return $html;
 			} else {
 				return $this->error('JSON Error');
