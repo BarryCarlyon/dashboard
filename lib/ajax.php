@@ -113,24 +113,24 @@ switch ($do) {
         break;
 
     case 'killWidget':
-        $parent = $_GET['parent'];
-        if (!is_file(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json')) {
-            $widgets = array();
-        } else {
-            $widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json'), TRUE);
-            if (!is_array($widgets)) {
-                $widgets = array();
+        $dir = new FilesystemIterator(DASHBOARD_CACHE_PATH . 'column/');
+        foreach ($dir as $path => $fileinfo) {
+            if ($fileinfo->isFile() && $fileinfo->getFilename() != 'blank') {
+                $widgets = json_decode(file_get_contents($path), TRUE);
+                if (!is_array($widgets)) {
+                    $widgets = array();
+                }
+                foreach ($widgets as $index => $widget) {
+                    if ($widget == $_GET['widget']) {
+                        unset($widgets[$index]);
+                    }
+                }
+                $widgets = json_encode($widgets);
+                $fp = fopen($path, 'w');
+                fwrite($fp, $widgets);
+                fclose($fp);
             }
         }
-        foreach ($widgets as $index => $widget) {
-            if ($widget == $_GET['widget']) {
-                unset($widgets[$index]);
-            }
-        }
-        $widgets = json_encode($widgets);
-        $fp = fopen(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json', 'w');
-        fwrite($fp, $widgets);
-        fclose($fp);
 }
 if ($do) {
     exit;

@@ -72,7 +72,7 @@ hr { border: 0px; display: block; clear: both; }
     background: orange;
 }
 
-.change_col, .delete_col {
+.change_col, .delete_col, .delete-icon {
     width: 16px;
     height: 0px;
     padding-top: 16px;
@@ -82,4 +82,4 @@ hr { border: 0px; display: block; clear: both; }
     cursor: pointer;
 }
 .change_col { background: url('icons/edit.png'); }
-.delete_col { background: url('icons/delete.png'); }
+.delete_col, .delete-icon { background: url('icons/delete.png'); }

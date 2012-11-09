@@ -57,6 +57,12 @@ jQuery(document).ready(function() {
         }
     });
 
+//    jQuery(document).on('click', '.delete-icon', function() {
+//        jQuery(this).parents('.module').remove();
+//        jQuery.get('?do=killWidget&widget=' + jQuery(this).parents('.module').attr('id'), function(data) {});
+//    });
+
+//    <span class='ui-icon delete-icon'></span>")
     jQuery('.module .ui-widget-header').prepend( "<span class='ui-icon ui-icon-minusthick'></span>")
     jQuery('.module .ui-icon').click(function() {
         jQuery(this).toggleClass('ui-icon-minusthick').toggleClass('ui-icon-plusthick');
