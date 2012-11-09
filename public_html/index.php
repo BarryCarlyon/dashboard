@@ -52,6 +52,14 @@ if (!is_file(DASHBOARD_CACHE_PATH . 'columns.json')) {
 if (is_array($columns)) {
     foreach ($columns as $col) {
         $content = '';
+        if (is_file(DASHBOARD_CACHE_PATH . 'column/' . $col[0] . '.json')) {
+            $col_widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column/' . $col[0] . '.json'), TRUE);
+            foreach ((array)$col_widgets as $col_widget) {
+                $col_widget = str_replace('_widget', '', $col_widget);
+                $content .= $widgets[$col_widget]->generate();
+                unset($widgets[$col_widget]);
+            }
+        }
         echo columnRender($col[0], $col[1], $content);
     }
 }

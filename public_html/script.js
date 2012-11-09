@@ -22,6 +22,7 @@ jQuery(document).ready(function() {
                 jQuery('.loading').remove();
                 jQuery(data).appendTo('body');
                 jQuery('.col_control ul').slideUp();
+                regen();
             });
         }
     });
@@ -57,7 +58,14 @@ jQuery(document).ready(function() {
     });
 
     jQuery('.module .ui-widget-header').prepend( "<span class='ui-icon ui-icon-minusthick'></span>")
+    jQuery('.module .ui-icon').click(function() {
+        jQuery(this).toggleClass('ui-icon-minusthick').toggleClass('ui-icon-plusthick');
+        jQuery(this).parents('.module').find('.ui-widget-content').toggle();
+    });
+    regen();
+});
 
+function regen() {
     jQuery('.col').sortable({
         connectWith:    '.col',
         items:          '.module',
@@ -80,9 +88,4 @@ jQuery(document).ready(function() {
             }
         }
     }).disableSelection();
-
-    jQuery('.module .ui-icon').click(function() {
-        jQuery(this).toggleClass('ui-icon-minusthick').toggleClass('ui-icon-plusthick');
-        jQuery(this).parents('.module').find('.ui-widget-content').toggle();
-    });
-});
+}
