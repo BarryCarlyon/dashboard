@@ -1,11 +1,11 @@
 <?php
 
-function columnRender($name, $width) {
+function columnRender($name, $width, $content = '') {
     return '<div class="col" id="' . $name . '" style="width: ' . $width . 'px;">'
         . '<hr /><div class="col_control"><ul>'
         . '<li class="change_col">Change</li>'
         . '<li class="delete_col">Delete</li>'
-        . '</ul>Control</div><hr /></div>';
+        . '</ul>Control</div><hr />' . $content . '</div>';
 }
 
 class module {

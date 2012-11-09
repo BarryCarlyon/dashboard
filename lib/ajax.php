@@ -76,10 +76,10 @@ switch ($do) {
         $widget = str_replace('_widget', '', $_GET['widget']);
         echo $widgets[$widget]->bodyOnly();
         $parent = $_GET['parent'];
-        if (!is_file(DASHBOARD_CACHE_PATH . 'column_' . $widget . '.json')) {
+        if (!is_file(DASHBOARD_CACHE_PATH . 'column_' . $parent . '.json')) {
             $widgets = array();
         } else {
-            $widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column_' . $widget . '.json'), TRUE);
+            $widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column_' . $parent . '.json'), TRUE);
             if (!is_array($widgets)) {
                 $widgets = array();
             }
@@ -87,17 +87,17 @@ switch ($do) {
         $widgets[] = $_GET['widget'];
         $widgets = array_unique($widgets);
         $widgets = json_encode($widgets);
-        $fp = fopen(DASHBOARD_CACHE_PATH . 'column_' . $widget . '.json', 'w');
+        $fp = fopen(DASHBOARD_CACHE_PATH . 'column_' . $parent . '.json', 'w');
         fwrite($fp, $widgets);
         fclose($fp);
         break;
 
     case 'killWidget':
         $parent = $_GET['parent'];
-        if (!is_file(DASHBOARD_CACHE_PATH . 'column_' . $widget . '.json')) {
+        if (!is_file(DASHBOARD_CACHE_PATH . 'column_' . $parent . '.json')) {
             $widgets = array();
         } else {
-            $widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column_' . $widget . '.json'), TRUE);
+            $widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column_' . $parent . '.json'), TRUE);
             if (!is_array($widgets)) {
                 $widgets = array();
             }
@@ -108,7 +108,7 @@ switch ($do) {
             }
         }
         $widgets = json_encode($widgets);
-        $fp = fopen(DASHBOARD_CACHE_PATH . 'column_' . $widget . '.json', 'w');
+        $fp = fopen(DASHBOARD_CACHE_PATH . 'column_' . $parent . '.json', 'w');
         fwrite($fp, $widgets);
         fclose($fp);
 }

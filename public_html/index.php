@@ -51,7 +51,8 @@ if (!is_file(DASHBOARD_CACHE_PATH . 'columns.json')) {
 }
 if (is_array($columns)) {
     foreach ($columns as $col) {
-        echo columnRender($col[0], $col[1]);
+        $content = '';
+        echo columnRender($col[0], $col[1], $content);
     }
 }
 ?>
