@@ -70,9 +70,11 @@ jQuery(document).ready(function() {
         },
         stop:           function(event, ui) {
             var name = jQuery(ui.item).attr('id');
-            jQuery.get('?do=loadWidget&widget=' + name, function(data) {
-                jQuery('#'+name+' .module_content').replaceWith(data);
-            });
+            if (!jQuery('#widget_source').find(ui.item).length) {
+                jQuery.get('?do=loadWidget&widget=' + name, function(data) {
+                    jQuery('#'+name+' .module_content').replaceWith(data);
+                });
+            }
         }
     }).disableSelection();
 

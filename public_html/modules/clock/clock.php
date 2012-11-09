@@ -16,6 +16,6 @@ class clock extends module
 		return $header;
 	}
 	public function content() {
-		return '<div id="' . $this->id . '_clock"></div>';
+		return '<div style="width: 200px; margin-left: auto; margin-right: auto;"><div id="' . $this->id . '_clock"></div></div>';
 	}
 }
