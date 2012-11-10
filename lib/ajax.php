@@ -10,7 +10,7 @@ switch ($do) {
         if (!is_file(DASHBOARD_CACHE_PATH . 'columns.json')) {
             $columns = array();
         } else {
-            $columns = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'columns.json'), TRUE);
+            $columns = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'columns.json'), true);
             if (!is_array($columns)) {
                 $columns = array();
             }
@@ -32,7 +32,7 @@ switch ($do) {
         if (!is_file(DASHBOARD_CACHE_PATH . 'columns.json')) {
             $columns = array();
         } else {
-            $columns = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'columns.json'), TRUE);
+            $columns = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'columns.json'), true);
             if (!is_array($columns)) {
                 $columns = array();
             }
@@ -54,7 +54,7 @@ switch ($do) {
         if (!is_file(DASHBOARD_CACHE_PATH . 'columns.json')) {
             $columns = array();
         } else {
-            $columns = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'columns.json'), TRUE);
+            $columns = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'columns.json'), true);
             if (!is_array($columns)) {
                 $columns = array();
             }
@@ -76,7 +76,7 @@ switch ($do) {
         $dir = new FilesystemIterator(DASHBOARD_CACHE_PATH . 'column/');
         foreach ($dir as $path => $fileinfo) {
             if ($fileinfo->isFile() && $fileinfo->getFilename() != 'blank') {
-                $widgets = json_decode(file_get_contents($path), TRUE);
+                $widgets = json_decode(file_get_contents($path), true);
                 if (!is_array($widgets)) {
                     $widgets = array();
                 }
@@ -100,7 +100,7 @@ switch ($do) {
         if (!is_file(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json')) {
             $widgets = array();
         } else {
-            $widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json'), TRUE);
+            $widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json'), true);
             if (!is_array($widgets)) {
                 $widgets = array();
             }
@@ -117,7 +117,7 @@ switch ($do) {
         $dir = new FilesystemIterator(DASHBOARD_CACHE_PATH . 'column/');
         foreach ($dir as $path => $fileinfo) {
             if ($fileinfo->isFile() && $fileinfo->getFilename() != 'blank') {
-                $widgets = json_decode(file_get_contents($path), TRUE);
+                $widgets = json_decode(file_get_contents($path), true);
                 if (!is_array($widgets)) {
                     $widgets = array();
                 }
@@ -137,7 +137,7 @@ switch ($do) {
     case 'toggleWidget':
         $parent = $_GET['parent'];
         $toggle = $_GET['widget'];
-        $widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json'), TRUE);
+        $widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json'), true);
         foreach ($widgets as &$widget) {
             if ($widget == $toggle) {
                 // change it
