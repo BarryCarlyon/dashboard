@@ -62,6 +62,9 @@ jQuery(document).ready(function() {
 
     });
     regen();
+
+//    setInterval('handleRefreshers()', 3000);
+    setInterval('handleRefreshers()', 30000);
 });
 
 function regen() {
@@ -94,4 +97,22 @@ function regen() {
             }
         }
     }).disableSelection();
+}
+
+var refreshers = new Array();
+function registerRefresh(widget_name) {
+    refreshers.push(widget_name);
+}
+function handleRefreshers() {
+    console.log('handle called');
+    for (x=0;x<refreshers.length;x++) {
+        var name = refreshers[x];
+        console.log('reload ' + name);
+        if (jQuery('#'+name+'_content').length) {
+            console.log('has content');
+            jQuery.get('?do=loadWidget&widget=' + name, function(data) {
+                jQuery('#'+name+'_content').replaceWith(data);
+            });
+        }
+    }
 }

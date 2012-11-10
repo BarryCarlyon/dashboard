@@ -96,21 +96,23 @@ switch ($do) {
         $widget = new $widget();
         echo $widget->bodyOnly();
 
-        $parent = $_GET['parent'];
-        if (!is_file(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json')) {
-            $widgets = array();
-        } else {
-            $widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json'), true);
-            if (!is_array($widgets)) {
+        $parent = isset($_GET['parent']) ? $_GET['parent'] : false;
+        if ($parent) {
+            if (!is_file(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json')) {
                 $widgets = array();
+            } else {
+                $widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json'), true);
+                if (!is_array($widgets)) {
+                    $widgets = array();
+                }
             }
+            $widgets[] = $_GET['widget'];
+            $widgets = array_unique($widgets);
+            $widgets = json_encode($widgets);
+            $fp = fopen(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json', 'w');
+            fwrite($fp, $widgets);
+            fclose($fp);
         }
-        $widgets[] = $_GET['widget'];
-        $widgets = array_unique($widgets);
-        $widgets = json_encode($widgets);
-        $fp = fopen(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json', 'w');
-        fwrite($fp, $widgets);
-        fclose($fp);
         break;
 
     case 'killWidget':

@@ -35,6 +35,17 @@ include(__DIR__ . '/../lib/ajax.php');
     <script type="text/javascript">
         google.load('visualization', '1', {packages: ['corechart']});
     </script>
+    <script type="text/javascript">
+jQuery(document).ready(function() {
+<?php
+foreach ($widgets as $name => $widget) {
+    if (isset($widget->refresh) && $widget->refresh) {
+        echo 'registerRefresh(\'' . $name . '\')' . "\n";
+    }
+}
+?>
+});
+</script>
 </head>
 <body>
 <div id="controller">
