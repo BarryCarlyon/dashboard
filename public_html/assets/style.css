@@ -1,4 +1,5 @@
 * { font-family: Verdana; }
+body { background: #EFEFEF; }
 
 table { text-align: center; }
 .module { margin: 10px 0px; }
@@ -8,8 +9,6 @@ p { margin: 3px 5px; }
 ul, li { list-style: none; margin: 0px; padding: 0px; }
 
 hr { border: 0px; display: block; clear: both; }
-
-.gridster { background: #EFEFEF; }
 
 .error { border: 1px solid #FF0000; }
 .error_normal { background: #990000;}
@@ -33,8 +32,14 @@ hr { border: 0px; display: block; clear: both; }
     min-height: 1em;
     cursor: pointer;
 }
+#loading {
+    z-index: 3;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
 
-.delete_col, .delete-icon {
+#loading, .delete_col, .delete-icon {
     width: 16px;
     height: 0px;
     padding-top: 16px;
@@ -42,9 +47,11 @@ hr { border: 0px; display: block; clear: both; }
     display: inline-block;
     margin: 0px 1px;
     cursor: pointer;
+    background-repeat: no-repeat;
 }
-.change_col { background: url('icons/edit.png'); }
-.delete_col, .delete-icon { background: url('icons/delete.png'); }
+.change_col { background: url('../icons/edit.png'); }
+.delete_col, .delete-icon { background: url('../icons/delete.png'); }
+#loading { background: url('../icons/loading.gif'); }
 
 .toggle { cursor: pointer; }
 .hidden { display: none; }
