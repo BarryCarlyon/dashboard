@@ -4,6 +4,8 @@ class halo4challenges extends module
 {
 	public $id = 'halo4challenges';
 	public $title = 'Halo 4 Challenges';
+	public $width = 2;
+	public $height = 3;
 
 	public function content() {
 		$url = 'http://halocharts.com/2012/json_challenges.php';

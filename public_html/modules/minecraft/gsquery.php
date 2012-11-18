@@ -2400,34 +2400,3 @@ class RCon extends GSQuery
   // }}}
   // }}}
 }
-
-return;
-
-//echo "<pre>\n";
-define("DEBUG", FALSE);
-$query = new GSQuery();
-#$query->SetProtocol("AutoDetect");
-$query->SetProtocol("GameSpy4");
-#$query->SetProtocol("Doom3");
-#$query->SetProtocols(array("HalfLife", "Quake2", "Quake3", "GameSpy", "GameSpyPortPlus10", "GameSpy2", "GameSpy3", "GameSpy4", "AllSeeingEye", "Doom3"));
-#$query->SetProtocols(array("Doom3"));
-#$query->SetProtocols(array("Quake4"));
-/*
-if (isset($_GET["queryport"]) && $_GET["queryport"] != "")
-  $query->SetIpPort($_GET["ip"].":".$_GET["port"].":".$_GET["queryport"]);
-else
-  $query->SetIpPort($_GET["ip"].":".$_GET["port"]);
-*/
-  
-// Set default value to Anzus War Games if no IP and PORT supplied
-//if (!isset($_GET["ip"]))
-//  $query->SetIpPort("216.189.8.183:2302");
-  $query->SetIpPort("barrycarlyon.co.uk:25565");
-// done setting default
-
-$query->SetRequestData(array("FullInfo"));
-$query->SetSocketTimeOut(0, 100000);
-$query->SetSocketLoopTimeOut(1000);
-$data = $query->GetData();
-
-print_r($data);

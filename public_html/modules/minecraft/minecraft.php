@@ -6,6 +6,8 @@ class minecraft extends module
 	public $id = 'minecraft';
 	public $title = 'Minecraft';
 	public $refresh = true;
+	public $width = 2;
+	public $height = 1;
 
 	public function cron() {
 		echo 'Run Minecraft';
@@ -17,12 +19,16 @@ class minecraft extends module
 
 //		$query->SetIpPort("216.189.8.183:2302");
 		$query->SetIpPort("barrycarlyon.co.uk:25565");
+//		$query->SetIpPort("play.phantomcraft.net:25565");
 
 		$query->SetRequestData(array("FullInfo"));
 		$query->SetSocketTimeOut(0, 100000);
 		$query->SetSocketLoopTimeOut(5000);
 
+//while(!$data['Details']){
 		$data = $query->GetData();
+echo 'here:';print_r($data);
+//}
 		// stop the blanking
 		if (isset($data['Details'])) {
 			$fp = fopen(DASHBOARD_CACHE_PATH . 'minecraft.json', 'w');
@@ -51,38 +57,8 @@ class minecraft extends module
 			$html .= '<li>' . $player['player'] . '</li>';
 		}
 		$html .= '</ul></td></tr>';
-		$html .= '<tr><td colspan="2">' . date('r',time()) . '</td></tr>';
+//		$html .= '<tr><td colspan="2">' . date('r',time()) . '</td></tr>';
 		$html .= '</table>';
 		return $html;
 	}
 }
-
-return;
-
-define("DEBUG", FALSE);
-$query = new GSQuery();
-#$query->SetProtocol("AutoDetect");
-$query->SetProtocol("GameSpy4");
-#$query->SetProtocol("Doom3");
-#$query->SetProtocols(array("HalfLife", "Quake2", "Quake3", "GameSpy", "GameSpyPortPlus10", "GameSpy2", "GameSpy3", "GameSpy4", "AllSeeingEye", "Doom3"));
-#$query->SetProtocols(array("Doom3"));
-#$query->SetProtocols(array("Quake4"));
-/*
-if (isset($_GET["queryport"]) && $_GET["queryport"] != "")
-  $query->SetIpPort($_GET["ip"].":".$_GET["port"].":".$_GET["queryport"]);
-else
-  $query->SetIpPort($_GET["ip"].":".$_GET["port"]);
-*/
-  
-// Set default value to Anzus War Games if no IP and PORT supplied
-//if (!isset($_GET["ip"]))
-//  $query->SetIpPort("216.189.8.183:2302");
-  $query->SetIpPort("barrycarlyon.co.uk:25565");
-// done setting default
-
-$query->SetRequestData(array("FullInfo"));
-$query->SetSocketTimeOut(0, 100000);
-$query->SetSocketLoopTimeOut(1000);
-$data = $query->GetData();
-
-print_r($data);

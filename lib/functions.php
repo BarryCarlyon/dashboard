@@ -14,7 +14,7 @@ class module {
         return '<div class="ui-widget ui-widget-content ui-corner-all module" id="' . $this->id . '_' . ($closed ? 'closed' : 'widget') . '">
     <div class="ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
         ' . $this->title . '
-        <span class="ui-icon ui-icon-' . ($closed ? 'plus' : 'minus') . 'thick"></span>
+        <span class="toggle ui-icon ui-icon-' . ($closed ? 'plus' : 'minus') . 'thick"></span>
     </div>
     
     <div class="ui-widget-content ui-corner-bottom widget-content" id="' . $this->id . '_content" style="display: ' . ($closed ? 'none' : 'block') . ';">
@@ -23,12 +23,12 @@ class module {
     </div>
 </div>';
     }
-    public function titleOnly($closed = false)
+    public function titleOnly()
     {
         return '<div class="ui-widget ui-widget-content ui-corner-all module" id="' . $this->id . '_widget">
     <div class="ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
         ' . $this->title . '
-        <span class="ui-icon ui-icon-' . ($closed ? 'plus' : 'minus') . 'thick"></span>
+        <span class="toggle ui-icon ui-icon-plusthick hidden"></span>
     </div>
     <div class="module_content"></div>
 </div>';

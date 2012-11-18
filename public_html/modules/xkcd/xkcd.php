@@ -3,6 +3,8 @@
 class xkcd extends module {
 	public $id = 'xkcd';
 	public $title = 'XKCD';
+	public $width = 3;
+	public $height = 3;
 
 	public function content() {
 		$html = '';
@@ -36,6 +38,6 @@ class xkcd extends module {
 			$html .= '<li><a href="' . $item->get_permalink() . '">' . $item->get_title() . '</a></li>';
 		}
 		$html .= '</ul>';
-		return $html;
+		return '<div style="height: 420px; overflow: auto;">' . $html . '</div>';
 	}
 }

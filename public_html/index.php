@@ -1,7 +1,7 @@
 <?php
 
 define('DASHBOARD_CACHE_PATH', __DIR__ . '/../cache/');
-define('DASHBOARD_URL_ROOT', str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
+define('DASHBOARD_URL_ROOT', str_replace(array('index.php', 'test.php'), '', $_SERVER['SCRIPT_NAME']));
 define('DASHBOARD_URL_MODULES', DASHBOARD_URL_ROOT . 'modules/');
 define('DASHBOARD_MODULES_PATH', __DIR__ . '/modules/');
 define('DASHBOARD_LIB_PATH', __DIR__ . '/../lib/');
@@ -30,8 +30,8 @@ include(__DIR__ . '/../lib/ajax.php');
     <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/ui-darkness/jquery-ui.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <script type="text/javascript" src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/style.css" />
+    <script type="text/javascript" src="assets/script.js"></script>
     <script type="text/javascript">
         google.load('visualization', '1', {packages: ['corechart']});
     </script>
@@ -46,52 +46,38 @@ foreach ($widgets as $name => $widget) {
 ?>
 });
 </script>
+
+<script type="text/javascript" src="assets/jquery.gridster.min.js"></script>
+<link rel="stylesheet" type="text/css" href="assets/jquery.gridster.min.css" />
+
+<style type="text/css">
+.gridster { background: #EFEFEF; }
+.module { background: #000000; color: #FFFFFF; }
+</style>
+
 </head>
 <body>
-<div id="controller">
-    Control
-    <ul>
-        <li class="create_column">Create Column</li>
-    </ul>
-</div>
-<?php
-//echo $body;
-if (!is_file(DASHBOARD_CACHE_PATH . 'columns.json')) {
-    $columns = array();
-} else {
-    $columns = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'columns.json'), TRUE);
-}
-if (is_array($columns)) {
-    foreach ($columns as $col) {
-        $content = '';
-        if (is_file(DASHBOARD_CACHE_PATH . 'column/' . $col[0] . '.json')) {
-            $col_widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column/' . $col[0] . '.json'), TRUE);
-            foreach ((array)$col_widgets as $col_widget) {
-                $col_widget = str_replace('_widget', '', $col_widget);
-                if (isset($widgets[$col_widget])) {
-                    $content .= $widgets[$col_widget]->generate();
-                } else {
-                    $col_widget = str_replace('_closed', '', $col_widget);
-                    $content .= $widgets[$col_widget]->generate(TRUE);
-                }
-                unset($widgets[$col_widget]);
-            }
-        }
-        echo columnRender($col[0], $col[1], $content);
-    }
-}
-?>
+<div class="gridster"><ul>
+    <!--
+    <li id="test" class="module" data-row="1" data-col="1" data-sizex="1" data-sizey="1">beep</li>
+    <li id="testb" class="module" data-row="1" data-col="2" data-sizex="1" data-sizey="1">beep</li>
+    <li id="testc" class="module" data-row="1" data-col="3" data-sizex="1" data-sizey="1">beep</li>
+-->
+</ul></div>
+
 <div id="widget_source" class="col">
 <p class="title">Widgets</p>
-<div class="widgets">
+<ul class="widgets">
 <?php
 
 foreach ($widgets as $base => $class) {
-    echo $class->titleOnly();
+    echo '<li id="' . $class->id . '" data-sizex-open="' . (isset($class->width)? $class->width : 1) . '" data-sizey-open="' . (isset($class->height)? $class->height : 1) . '">' . $class->titleOnly() . '</li>';
+//    echo '<li id="' . $class->id . '" class="new module" data-sizex-open="' . (isset($class->width)? $class->width : 1) . '" data-sizey-open="' . (isset($class->height)? $class->height : 1) . '">' . $class->title . '</li>';
 }
 
 ?>
+</ul>
 </div>
-</div>
+
 </body>
 </html>

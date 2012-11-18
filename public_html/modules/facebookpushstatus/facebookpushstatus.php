@@ -3,6 +3,8 @@
 class facebookpushstatus extends module {
 	public $id = 'facebookpushstatus';
 	public $title = 'Facebook Push Status';
+	public $width = 2;
+	public $height = 1;
 
 	public function content() {
 		$url = 'https://www.facebook.com/feeds/api_status.php';

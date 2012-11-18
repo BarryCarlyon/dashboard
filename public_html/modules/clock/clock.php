@@ -4,6 +4,8 @@ class clock extends module
 {
 	public $id = 'clock';
 	public $title = 'Clock';
+	public $width = 2;
+	public $height = 2;
 
 	public function header() {
 		$header = '
