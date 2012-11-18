@@ -12,8 +12,6 @@ jQuery(document).ready(function() {
         }
     });
 
-    regen();
-
     setInterval('handleRefreshers()', 30000);
 
     gridster = jQuery('.gridster > ul').gridster({
@@ -29,20 +27,17 @@ jQuery(document).ready(function() {
             jQuery('#'+name+' .module_content').html(data);
         });
         jQuery(this).remove();
-        // regenerate the toggles
-        regen();
+        jQuery('.gridster .toggle').show();
     });
-});
 
-function regen() {
-    jQuery('.gridster .toggle').show();
-    jQuery('.toggle').on('click', function() {
+    jQuery('.gridster').on('click', '.toggle', function() {
         jQuery(this).toggleClass('ui-icon-minusthick').toggleClass('ui-icon-plusthick');
-        jQuery(this).parents('.module').find('.ui-widget-content').toggle();
+        jQuery(this).parents('.module').find('.module_content').toggle();
 
         jQuery.get('?do=toggleWidget&widget=' + jQuery(this).closest('.module').attr('id'));
     });
-}
+
+});
 
 var refreshers = new Array();
 function registerRefresh(widget_name) {
