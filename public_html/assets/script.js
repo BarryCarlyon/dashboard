@@ -40,10 +40,7 @@ function regen() {
         jQuery(this).toggleClass('ui-icon-minusthick').toggleClass('ui-icon-plusthick');
         jQuery(this).parents('.module').find('.ui-widget-content').toggle();
 
-        var name = jQuery(this).closest('.module').attr('id');
-        var parent = jQuery(this).closest('.col').attr('id');
-
-        jQuery.get('?do=toggleWidget&widget=' + name + '&parent=' + parent);
+        jQuery.get('?do=toggleWidget&widget=' + jQuery(this).closest('.module').attr('id'));
     });
 }
 
@@ -52,14 +49,10 @@ function registerRefresh(widget_name) {
     refreshers.push(widget_name);
 }
 function handleRefreshers() {
-    console.log('handle called');
     for (x=0;x<refreshers.length;x++) {
-        var name = refreshers[x];
-        console.log('reload ' + name);
-        if (jQuery('#'+name+'_content').length) {
-            console.log('has content');
-            jQuery.get('?do=loadWidget&widget=' + name, function(data) {
-                jQuery('#'+name+'_content').replaceWith(data);
+        if (jQuery('#'+refreshers[x]+'_content').length) {
+            jQuery.get('?do=loadWidget&widget=' + refreshers[x], function(data) {
+                jQuery('#'+refreshers[x]+'_content').replaceWith(data);
             });
         }
     }

@@ -50,31 +50,17 @@ foreach ($widgets as $name => $widget) {
 <script type="text/javascript" src="assets/jquery.gridster.min.js"></script>
 <link rel="stylesheet" type="text/css" href="assets/jquery.gridster.min.css" />
 
-<style type="text/css">
-.gridster { background: #EFEFEF; }
-.module { background: #000000; color: #FFFFFF; }
-</style>
-
 </head>
 <body>
-<div class="gridster"><ul>
-    <!--
-    <li id="test" class="module" data-row="1" data-col="1" data-sizex="1" data-sizey="1">beep</li>
-    <li id="testb" class="module" data-row="1" data-col="2" data-sizex="1" data-sizey="1">beep</li>
-    <li id="testc" class="module" data-row="1" data-col="3" data-sizex="1" data-sizey="1">beep</li>
--->
-</ul></div>
+<div class="gridster"><ul></ul></div>
 
 <div id="widget_source" class="col">
 <p class="title">Widgets</p>
 <ul class="widgets">
 <?php
-
 foreach ($widgets as $base => $class) {
     echo '<li id="' . $class->id . '" data-sizex-open="' . (isset($class->width)? $class->width : 1) . '" data-sizey-open="' . (isset($class->height)? $class->height : 1) . '">' . $class->titleOnly() . '</li>';
-//    echo '<li id="' . $class->id . '" class="new module" data-sizex-open="' . (isset($class->width)? $class->width : 1) . '" data-sizey-open="' . (isset($class->height)? $class->height : 1) . '">' . $class->title . '</li>';
 }
-
 ?>
 </ul>
 </div>
