@@ -53,6 +53,20 @@ foreach ($widgets as $name => $widget) {
 
 </head>
 <body>
+<?php
+// write test
+$cache = DASHBOARD_CACHE_PATH . 'test';
+if (false === fopen($cache, 'w')) {
+    echo '<div id="initilise" class="error_normal">';
+    echo '<p>Cache is not Writable, seeing what I can do</p>';
+    echo '</div>';
+} else {
+    echo '<div id="initilise" class="error_ok">';
+    echo '<p>Cache is Ok, Loading...</p>';
+    echo '</div>';
+}
+
+?>
 <div class="gridster"><ul><?php
 
 $state_items = DASHBOARD_CACHE_PATH . 'state_items.json';

@@ -33,6 +33,7 @@ class minecraft extends module
 			fwrite($fp, json_encode($data));
 			fclose($fp);
 		} else {
+			echo 'fail back';
 			// blanked
 			// switch to alt method
 

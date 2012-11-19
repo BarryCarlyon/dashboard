@@ -1,5 +1,5 @@
 * { font-family: Verdana; }
-body { background: #000000; }
+body { background: #000000; margin: 0px; padding: 0px; }
 
 table { text-align: center; }
 .ui-icon { float: right; }
@@ -11,6 +11,7 @@ hr { border: 0px; display: block; clear: both; }
 
 .error { border: 1px solid #FF0000; }
 .error_normal { background: #990000; }
+.error_ok { background: #009900; }
 
 .gs_w { background: #3F3F3F; color: #FFFFFF; overflow: auto; }
 .module { padding: 10px; }
@@ -67,3 +68,15 @@ a { color: #FFFFFF; }
 
 .toggle { cursor: pointer; }
 .hidden { display: none; }
+
+.gridster {
+    z-index: 1;
+}
+#initilise {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    color: #FFFFFF;
+    z-index: 2;
+    text-align: center;
+}

@@ -135,4 +135,5 @@ function loadingComplete() {
         loadingtrack = 0;
         jQuery('#loading').hide();
     }
+    setTimeout("jQuery('#initilise').slideUp()", 2500);
 }
