@@ -63,7 +63,7 @@ a { color: #FFFFFF; }
 .delete-icon { background-image: url('../icons/delete.png'); }
 #loading { background-image: url('../icons/loading.gif'); }
 
-#module_control { height: 100%; }
+.module_control { height: 100%; background: #9F9F9F; }
 
 .toggle { cursor: pointer; }
 .hidden { display: none; }
