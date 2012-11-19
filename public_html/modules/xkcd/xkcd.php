@@ -1,17 +1,22 @@
 <?php
 
 class xkcd extends module {
+	public $schedule = '0 9 * * *';
 	public $id = 'xkcd';
 	public $title = 'XKCD';
 	public $width = 3;
 	public $height = 3;
 
+	private $url = 'http://xkcd.com/info.0.json';
+
+	public function cron() {
+		$this->cache($this->url);
+	}
+
 	public function content() {
 		$html = '';
 
-		$url = 'http://xkcd.com/info.0.json';
-		// pacific time
-		$data = $this->cache($url);
+		$data = $this->cache($this->url);
 		if ($data) {
 			$data = json_decode($data);
 			if (json_last_error() == JSON_ERROR_NONE) {
