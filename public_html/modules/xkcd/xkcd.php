@@ -38,6 +38,6 @@ class xkcd extends module {
 			$html .= '<li><a href="' . $item->get_permalink() . '">' . $item->get_title() . '</a></li>';
 		}
 		$html .= '</ul>';
-		return '<div style="height: 420px; overflow: auto;">' . $html . '</div>';
+		return '<div style="height: 390px; overflow: auto;">' . $html . '</div>';
 	}
 }
