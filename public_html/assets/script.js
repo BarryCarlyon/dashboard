@@ -51,14 +51,21 @@ var refreshers = new Array();
 function registerRefresh(widget_name) {
     refreshers.push(widget_name);
 }
+
+var rerender = function(data) {
+    jQuery('#'+this.target+' .module_content').html(data);
+    loadingComplete();
+}
+
 function handleRefreshers() {
     loadingStart();
     for (x=0;x<refreshers.length;x++) {
         if (jQuery('#'+refreshers[x]+'_content').length) {
             loadingStart();
-            jQuery.get('?do=loadWidget&widget=' + refreshers[x], function(data) {
-                jQuery('#'+refreshers[x]+'_content').replaceWith(data);
-                loadingComplete();
+            jQuery.ajax({
+                url: '?do=loadWidget&widget=' + refreshers[x],
+                target: refreshers[x],
+                success: rerender
             });
         }
     }
@@ -88,6 +95,7 @@ function saveState() {
 
 function loadingStart() {
     loadingtrack++;
+    console.log(loadingtrack);
     jQuery('#loading').show();
 }
 function loadingComplete() {
@@ -96,4 +104,5 @@ function loadingComplete() {
         loadingtrack = 0;
         jQuery('#loading').hide();
     }
+    console.log(loadingtrack);
 }
