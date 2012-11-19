@@ -1,9 +1,12 @@
 <?php
 
 class xkcd extends module {
-	public $schedule = '0 9 * * *';
 	public $id = 'xkcd';
 	public $title = 'XKCD';
+
+	public $schedule = '0 9 * * *';
+	public $refresh = true;
+
 	public $width = 3;
 	public $height = 3;
 
