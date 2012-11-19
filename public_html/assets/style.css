@@ -49,7 +49,7 @@ a { color: #FFFFFF; }
     left: 5px;
     top: 5px;
 }
-#loading, .delete_col, .delete-icon {
+#loading, .delete-icon {
     width: 16px;
     height: 0px;
     padding-top: 16px;
@@ -59,9 +59,11 @@ a { color: #FFFFFF; }
     cursor: pointer;
     background-repeat: no-repeat;
 }
-.change_col { background: url('../icons/edit.png'); }
-.delete_col, .delete-icon { background: url('../icons/delete.png'); }
-#loading { background: url('../icons/loading.gif'); }
+.change_col { background-image: url('../icons/edit.png'); }
+.delete-icon { background-image: url('../icons/delete.png'); }
+#loading { background-image: url('../icons/loading.gif'); }
+
+#module_control { height: 100%; }
 
 .toggle { cursor: pointer; }
 .hidden { display: none; }

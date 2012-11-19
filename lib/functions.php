@@ -4,29 +4,37 @@ class module {
     public function generate()
     {
         return '<div class="module" id="' . $this->id . '_widget">
-    <div>' . $this->title . '</div>
-    
-    <div class="module_content">
-    <div id="' . $this->id . '_content">
-        ' . (method_exists($this, 'header') ? $this->header() : '') . '
-        ' . (method_exists($this, 'content') ? $this->content() : '') . '
-    </div></div>
+    <div class="module_title" style="display: none;">' . $this->title . '</div>
+    ' . $this->bodyOnly() . '
+    ' . $this->controls() . '
 </div>';
     }
     public function titleOnly()
     {
         return '<div class="module" id="' . $this->id . '_widget">
-    <div>' . $this->title . '</div>
+    <div class="module_title">' . $this->title . '</div>
     <div class="module_content"></div>
+    ' . $this->controls() . '
 </div>';
     }
     public function bodyOnly()
     {
         return '
-    <div id="' . $this->id . '_content">
+    <div id="' . $this->id . '_content" class="module_content">
         ' . (method_exists($this, 'header') ? $this->header() : '') . '
         ' . (method_exists($this, 'content') ? $this->content() : '') . '
     </div>';
+    }
+
+    protected function controls() {
+        $html = '<div class="module_control">';
+        $html .= '<h5>Options</h5>';
+        if (method_exists($this, 'options')) {
+            $html .= $this->options();
+        }
+        $html .= '<a href="#delete" class="delete-icon removewidget">Delete</a>';
+        $html .= '</div>';
+        return $html;
     }
 
     protected function error($message, $severity = 0) {

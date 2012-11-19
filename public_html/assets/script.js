@@ -33,9 +33,10 @@ jQuery(document).ready(function() {
         }
     }).data('gridster');
 
-    jQuery('#widget_source .widgets > li').click(function() {
+    jQuery('#widget_source .widgets').on('click', 'li', function() {
         loadingStart();
         gridster.add_widget(jQuery(this).clone(), parseInt(jQuery(this).attr('data-sizex-open')), parseInt(jQuery(this).attr('data-sizey-open')));
+        jQuery('.gridster').find('.module_title').hide();
         var name = jQuery(this).attr('id');
         jQuery.get('?do=loadWidget&widget=' + name, function(data) {
             jQuery('#'+name+' .module_content').html(data);
@@ -44,6 +45,35 @@ jQuery(document).ready(function() {
         jQuery(this).remove();
         saveState();
     });
+
+    jQuery('.module_control').slideUp();
+    jQuery('.gridster').on('dblclick', 'li', function() {
+        jQuery(this).find('.module_content').slideUp();
+        jQuery(this).find('.module_control').slideDown();
+
+        jQuery(this).on('mouseleave', function() {
+            jQuery(this).find('.module_content').slideDown();
+            jQuery(this).find('.module_control').slideUp();
+        });
+    });
+
+    jQuery('body').on('click', '.removewidget', function() {
+        jQuery(this).closest('.gs_w').slideUp(function() {
+            jQuery(this).closest('.gs_w').clone().slideDown(function() {
+                jQuery(this).removeClass('gs_w');
+                jQuery(this).find('.module_content').html('');
+                jQuery(this).find('.module_control').slideUp();
+                jQuery(this).find('.module_title').show();
+                jQuery(this).attr('data-sizex-open', jQuery(this).attr('data-sizex'));
+                jQuery(this).attr('data-sizey-open', jQuery(this).attr('data-sizey'));
+                jQuery(this).removeAttr('data-col').removeAttr('data-row').removeAttr('data-sizex').removeAttr('data-sizey');
+            }).appendTo('#widget_source .widgets');
+            gridster.remove_widget(jQuery(this).closest('.gs_w'), function() {
+                saveState();
+            });
+        });
+    });
+
     loadingComplete();
 });
 
@@ -53,7 +83,9 @@ function registerRefresh(widget_name) {
 }
 
 var rerender = function(data) {
-    jQuery('#'+this.target+' .module_content').html(data);
+    if (jQuery('#'+this.target+' .module_content').html() != data) {
+        jQuery('#'+this.target+' .module_content').html(data);
+    }
     loadingComplete();
 }
 
