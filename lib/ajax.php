@@ -8,21 +8,14 @@ switch ($do) {
         echo $widget->bodyOnly();
         break;
 
-    case 'toggleWidget':
-        $parent = $_GET['parent'];
-        $toggle = $_GET['widget'];
-        $widgets = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json'), true);
-        foreach ($widgets as &$widget) {
-            if ($widget == $toggle) {
-                // change it
-                $widget = str_replace('_closed', '_open', $widget);
-                $widget = str_replace('_widget', '_closed', $widget);
-                $widget = str_replace('_open', '_widget', $widget);
-            }
-        }
-        $widgets = json_encode($widgets);
-        $fp = fopen(DASHBOARD_CACHE_PATH . 'column/' . $parent . '.json', 'w');
-        fwrite($fp, $widgets);
+    case 'saveState':
+        $data = $_POST['data'];
+        $fp = fopen(DASHBOARD_CACHE_PATH . 'state.json', 'w');
+        fwrite($fp, $data);
+        fclose($fp);
+        $items = $_POST['items'];
+        $fp = fopen(DASHBOARD_CACHE_PATH . 'state_items.json', 'w');
+        fwrite($fp, $items);
         fclose($fp);
         break;
 }

@@ -53,7 +53,26 @@ foreach ($widgets as $name => $widget) {
 
 </head>
 <body>
-<div class="gridster"><ul></ul></div>
+<div class="gridster"><ul><?php
+
+$state_items = DASHBOARD_CACHE_PATH . 'state_items.json';
+if (is_file($state_items)) {
+    $data = file_get_contents($state_items);
+    $data = json_decode($data);
+
+    $pos = file_get_contents(DASHBOARD_CACHE_PATH . 'state.json');
+    $pos = json_decode($pos, TRUE);
+
+    foreach ($data as $item) {
+        $state = array_shift($pos);
+        echo '<li id="' . $widgets[$item]->id . '" data-col="' . $state['col'] . '" data-row="' . $state['row'] . '" data-sizex="' . $state['size_x'] . '" data-sizey="' . $state['size_y'] . '">';
+        echo $widgets[$item]->generate();
+        echo '</li>';
+        unset($widgets[$item]);
+    }
+}
+
+?></ul></div>
 
 <div id="widget_source" class="col">
 <p class="title">Widgets</p>

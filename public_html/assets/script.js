@@ -18,7 +18,7 @@ jQuery(document).ready(function() {
     gridster = jQuery('.gridster > ul').gridster({
         widget_margins: [5, 5],
         widget_base_dimensions: [140, 140],
-        min_cols: 6,
+        min_cols: 8,
         draggable: {
             stop: function() {
                 saveState();
@@ -61,9 +61,17 @@ function handleRefreshers() {
 var loadingtrack = 0;
 function saveState() {
     loadingStart();
+    // get widget dom order
+    var items = new Array();
+    jQuery('.gridster ul > li').each(function() {
+        if (jQuery(this).attr('id')) {
+            items.push(jQuery(this).attr('id'));
+        }
+    });
     jQuery.post('?do=saveState',
         {
-            data: JSON.stringify(gridster.serialize(), null, 2)
+            data: JSON.stringify(gridster.serialize(), null, 2),
+            items: JSON.stringify(items)
         },
         function(data) {
             loadingComplete();
