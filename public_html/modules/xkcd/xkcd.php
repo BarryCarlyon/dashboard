@@ -35,10 +35,9 @@ class xkcd extends module {
 		$html .= '<h4>WhatIf?</h4>';
 		$html .= '<ul>';
 		foreach ($feed->get_items() as $item) {
-			$html .= '<li><a href="' . $item->get_permalink() . '">' . $item->get_title() . '</a></li>';
+			$html .= '<li><a href="' . $item->get_permalink() . '" target="xkcd">' . $item->get_title() . '</a></li>';
 		}
 		$html .= '</ul>';
 		return $html;
-//		return '<div style="height: 390px; overflow: auto;">' . $html . '</div>';
 	}
 }
