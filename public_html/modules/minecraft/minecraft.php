@@ -25,15 +25,68 @@ class minecraft extends module
 		$query->SetSocketTimeOut(0, 100000);
 		$query->SetSocketLoopTimeOut(5000);
 
-//while(!$data['Details']){
 		$data = $query->GetData();
-echo 'here:';print_r($data);
-//}
+
 		// stop the blanking
 		if (isset($data['Details'])) {
 			$fp = fopen(DASHBOARD_CACHE_PATH . 'minecraft.json', 'w');
 			fwrite($fp, json_encode($data));
 			fclose($fp);
+		} else {
+			// blanked
+			// switch to alt method
+
+			// create
+			$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+			if ($socket === false) {
+				echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
+				// system fail
+				exit;
+			}
+
+			// connect
+			$result = socket_connect($socket, $server, $port);
+			if ($result === false) {
+				echo "socket_connect() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
+				// server DOWN
+				exit;
+			}
+
+			// Server Ip Load data
+
+			$in = "\xfe";
+			$out = '';
+
+			// send ping
+			socket_write($socket, $in, strlen($in));
+
+			// read data
+			$string = '';
+			while ($out = socket_read($socket, 2048)) {
+				$string .= $out;
+			}
+
+			$data = explode("\xa7", $string);
+
+			$existing = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'minecraft.json'), TRUE);
+			$existing['Details']['numplayers'] = $data[1];
+/*
+			$server_description = $data[0];
+			$players_on = $data[1];
+			$players_max = $data[2];
+*/
+
+			$fp = fopen(DASHBOARD_CACHE_PATH . 'minecraft.json', 'w');
+			fwrite($fp, json_encode($existing));
+			fclose($fp);
+
+			// close the connection
+			$in = "\xff";
+
+			socket_write($socket, $in, strlen($in));
+
+			socket_close($socket);
+
 		}
 	}
 
@@ -47,7 +100,6 @@ echo 'here:';print_r($data);
 			}
 		}
 		// process
-//		$html = '<pre>' . print_r($data,true) . '</pre>';
 		$html = '<table style="width: 100%;">';
 		$html .= '<tr><td>HostName</td><td>' . $data['Details']['hostname'] . '</td></tr>';
 		$html .= '<tr><td>Version</td><td>' . $data['Details']['version'] . '</td></tr>';
@@ -57,7 +109,6 @@ echo 'here:';print_r($data);
 			$html .= '<li>' . $player['player'] . '</li>';
 		}
 		$html .= '</ul></td></tr>';
-//		$html .= '<tr><td colspan="2">' . date('r',time()) . '</td></tr>';
 		$html .= '</table>';
 		return $html;
 	}
