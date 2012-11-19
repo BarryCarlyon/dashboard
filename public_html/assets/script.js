@@ -2,6 +2,7 @@ var gridster;
 
 jQuery(document).ready(function() {
     loadingStart();
+    jQuery('#widget_source').css({width: jQuery('#widget_source').width() + 'px'})
     jQuery('#widget_source .widgets').slideUp();
     jQuery('#widget_source .title').click(function() {
         if (jQuery(this).hasClass('isopen')) {
