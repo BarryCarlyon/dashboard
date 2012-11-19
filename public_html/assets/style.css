@@ -35,6 +35,12 @@ a { color: #FFFFFF; }
     min-height: 1em;
     cursor: pointer;
 }
+#widget_source .module {
+    background: #3F3F3F;
+    padding: 3px 5px;
+    color: #FFFFFF;
+}
+
 #loading {
     z-index: 3;
     position: absolute;

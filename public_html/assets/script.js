@@ -13,6 +13,12 @@ jQuery(document).ready(function() {
             jQuery(this).addClass('isopen');
         }
     });
+    jQuery('#widget_source').on('mouseleave', function() {
+        if (jQuery('#widget_source .title').hasClass('isopen')) {
+            jQuery('#widget_source .widgets').slideUp();
+            jQuery('#widget_source .title').removeClass('isopen');
+        }
+    });
 
     setInterval('handleRefreshers()', 30000);
 
