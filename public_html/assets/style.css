@@ -12,6 +12,10 @@ hr { border: 0px; display: block; clear: both; }
 .error { border: 1px solid #FF0000; }
 .error_normal { background: #990000;}
 
+.gs_w { background: #3F3F3F; color: #FFFFFF; }
+.module { padding: 10px; overflow: auto; }
+a { color: #FFFFFF; }
+
 #widget_source {
     position: absolute;
     bottom: 0px;
@@ -37,7 +41,6 @@ hr { border: 0px; display: block; clear: both; }
     left: 5px;
     top: 5px;
 }
-
 #loading, .delete_col, .delete-icon {
     width: 16px;
     height: 0px;

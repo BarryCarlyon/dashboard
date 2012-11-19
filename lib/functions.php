@@ -1,15 +1,13 @@
 <?php
 
 class module {
-    public function generate($closed = false)
+    public function generate()
     {
-        return '<div class="ui-widget ui-widget-content ui-corner-all module" id="' . $this->id . '_' . ($closed ? 'closed' : 'widget') . '">
-    <div class="ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-        ' . $this->title . '
-    </div>
+        return '<div class="module" id="' . $this->id . '_widget">
+    <div>' . $this->title . '</div>
     
     <div class="module_content">
-    <div class="ui-widget-content ui-corner-bottom widget-content" id="' . $this->id . '_content" style="display: ' . ($closed ? 'none' : 'block') . ';">
+    <div id="' . $this->id . '_content">
         ' . (method_exists($this, 'header') ? $this->header() : '') . '
         ' . (method_exists($this, 'content') ? $this->content() : '') . '
     </div></div>
@@ -17,17 +15,15 @@ class module {
     }
     public function titleOnly()
     {
-        return '<div class="ui-widget ui-widget-content ui-corner-all module" id="' . $this->id . '_widget">
-    <div class="ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-        ' . $this->title . '
-    </div>
+        return '<div class="module" id="' . $this->id . '_widget">
+    <div>' . $this->title . '</div>
     <div class="module_content"></div>
 </div>';
     }
     public function bodyOnly()
     {
         return '
-    <div class="ui-widget-content ui-corner-bottom widget-content" id="' . $this->id . '_content">
+    <div id="' . $this->id . '_content">
         ' . (method_exists($this, 'header') ? $this->header() : '') . '
         ' . (method_exists($this, 'content') ? $this->content() : '') . '
     </div>';

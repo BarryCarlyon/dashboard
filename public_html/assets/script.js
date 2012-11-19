@@ -18,7 +18,7 @@ jQuery(document).ready(function() {
     gridster = jQuery('.gridster > ul').gridster({
         widget_margins: [5, 5],
         widget_base_dimensions: [140, 140],
-        min_cols: 8,
+        min_cols: 9,
         draggable: {
             stop: function() {
                 saveState();
