@@ -3,13 +3,22 @@
 class facebookpushstatus extends module {
 	public $id = 'facebookpushstatus';
 	public $title = 'Facebook Push Status';
+
+	public $schedule = '*/5 * * * *';
+	public $refresh = true;
+
 	public $width = 2;
 	public $height = 1;
 
+	private $url = 'https://www.facebook.com/feeds/api_status.php';
+
+	public function cron() {
+		return $this->cache($this->url);
+	}
+
 	public function content() {
-		$url = 'https://www.facebook.com/feeds/api_status.php';
 		// pacific time
-		$data = $this->cache($url);
+		$data = $this->cron();
 		if ($data) {
 			$data = json_decode($data);
 			if (json_last_error() == JSON_ERROR_NONE) {

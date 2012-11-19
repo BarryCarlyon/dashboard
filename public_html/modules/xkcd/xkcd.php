@@ -13,13 +13,13 @@ class xkcd extends module {
 	private $url = 'http://xkcd.com/info.0.json';
 
 	public function cron() {
-		$this->cache($this->url);
+		return $this->cache($this->url);
 	}
 
 	public function content() {
 		$html = '';
 
-		$data = $this->cache($this->url);
+		$data = $this->cron();
 		if ($data) {
 			$data = json_decode($data);
 			if (json_last_error() == JSON_ERROR_NONE) {
