@@ -19,7 +19,7 @@ class xkcd extends module {
 	public function content() {
 		$html = '';
 
-		$data = $this->cron();
+		$data = $this->loadcache($this->url);
 		if ($data) {
 			$data = json_decode($data);
 			if (json_last_error() == JSON_ERROR_NONE) {

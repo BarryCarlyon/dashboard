@@ -45,6 +45,15 @@ class module {
         return '<div id="error error_' . $severity . '">' . $message . '</div>';
     }
 
+    protected function loadcache($url)
+    {
+        $encoded = md5($url);
+        if (file_exists(DASHBOARD_CACHE_PATH . $encoded)) {
+            return file_get_contents(DASHBOARD_CACHE_PATH . $encoded);
+        }
+        return '';
+    }
+
     // 4 hours
     protected function cache($url, $method = 'get', $max_age = 21600)
     {
