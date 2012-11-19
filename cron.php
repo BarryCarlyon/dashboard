@@ -20,6 +20,7 @@ foreach ($dir as $path => $fileinfo) {
         $base = basename($path);
         include($path . '/' . $base . '.php');
         if (method_exists($base, 'cron')) {
+        	echo 'found ' . $base . "\n";
 	        $widgets[$base] = new $base();
         }
     }

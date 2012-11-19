@@ -95,7 +95,6 @@ function saveState() {
 
 function loadingStart() {
     loadingtrack++;
-    console.log(loadingtrack);
     jQuery('#loading').show();
 }
 function loadingComplete() {
@@ -104,5 +103,4 @@ function loadingComplete() {
         loadingtrack = 0;
         jQuery('#loading').hide();
     }
-    console.log(loadingtrack);
 }
