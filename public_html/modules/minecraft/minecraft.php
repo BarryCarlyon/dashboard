@@ -58,14 +58,23 @@ class minecraft extends module
 			$out = '';
 
 			// send ping
-			socket_write($socket, $in, strlen($in));
+			$result = socket_write($socket, $in, strlen($in));
+			if ($result === false) {
+				echo "socket_write() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
+				// server DOWN
+				exit;
+			}
 
 			// read data
 			$string = '';
-			while ($out = socket_read($socket, 2048)) {
+			while ($out = @socket_read($socket, 2048)) {
 				$string .= $out;
 			}
-
+			if ($out === FALSE) {
+				echo "socket_read() failed.\nReason: ($result) " . socket_strerror(socket_last_error($socket)) . "\n";
+				// server DOWN
+				exit;
+			}
 			$data = explode("\xa7", $string);
 
 			$existing = json_decode(file_get_contents(DASHBOARD_CACHE_PATH . 'minecraft.json'), TRUE);
