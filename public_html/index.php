@@ -15,8 +15,11 @@ $dir = new FilesystemIterator(DASHBOARD_MODULES_PATH);
 foreach ($dir as $path => $fileinfo) {
     if ($fileinfo->isDir()) {
         $base = basename($path);
-        include($path . '/' . $base . '.php');
-        $widgets[$base] = new $base();
+        if (is_file($path . '/' . $base . '.php')) {
+            include($path . '/' . $base . '.php');
+            $call = $base . 'Module';
+            $widgets[$base] = new $call();
+        }
     }
 }
 

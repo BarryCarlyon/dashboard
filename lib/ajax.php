@@ -4,7 +4,8 @@ $do = isset($_GET['do']) ? $_GET['do'] : false;
 switch ($do) {
     case 'loadWidget':
         $widget = str_replace('_widget', '', $_GET['widget']);
-        $widget = new $widget();
+        $call = $widget . 'Module';
+        $widget = new $call();
         if (method_exists($widget, 'ajax')) {
             echo $widget->ajax();
         } else {

@@ -1,6 +1,6 @@
 <?php
 
-class pinger extends module {
+class pingerModule extends module {
 	public $schedule = '*/5 * * * *';
 	public $id = 'pinger';
 	public $title = 'Pinger';

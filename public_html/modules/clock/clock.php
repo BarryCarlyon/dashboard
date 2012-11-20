@@ -1,6 +1,6 @@
 <?php
 
-class clock extends module
+class clockModule extends module
 {
 	public $id = 'clock';
 	public $title = '';

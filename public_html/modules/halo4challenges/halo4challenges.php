@@ -1,6 +1,6 @@
 <?php
 
-class halo4challenges extends module
+class halo4challengesModule extends module
 {
 	public $id = 'halo4challenges';
 	public $title = 'Halo 4 Challenges';

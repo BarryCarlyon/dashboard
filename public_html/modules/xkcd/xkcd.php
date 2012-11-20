@@ -1,6 +1,6 @@
 <?php
 
-class xkcd extends module {
+class xkcdModule extends module {
 	public $id = 'xkcd';
 	public $title = 'XKCD';
 

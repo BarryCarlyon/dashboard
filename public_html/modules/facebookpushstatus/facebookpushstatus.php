@@ -1,6 +1,6 @@
 <?php
 
-class facebookpushstatus extends module {
+class facebookpushstatusModule extends module {
 	public $id = 'facebookpushstatus';
 	public $title = 'Facebook Push Status';
 

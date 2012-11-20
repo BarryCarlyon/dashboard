@@ -1,6 +1,6 @@
 <?php
 
-class minecraft extends module
+class minecraftModule extends module
 {
 	public $schedule = '*/5 * * * *';
 	public $id = 'minecraft';
