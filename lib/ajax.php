@@ -5,7 +5,11 @@ switch ($do) {
     case 'loadWidget':
         $widget = str_replace('_widget', '', $_GET['widget']);
         $widget = new $widget();
-        echo $widget->bodyOnly();
+        if (method_exists($widget, 'ajax')) {
+            echo $widget->ajax();
+        } else {
+            echo $widget->bodyOnly();
+        }
         break;
 
     case 'saveState':

@@ -41,7 +41,7 @@ jQuery(document).ready(function() {
 <?php
 foreach ($widgets as $name => $widget) {
     if (isset($widget->refresh) && $widget->refresh) {
-        echo 'registerRefresh(\'' . $name . '\')' . "\n";
+        echo 'registerRefresh(\'' . $name . '\', \'' . (isset($widget->target) ? $widget->target : 'module_content') . '\')' . "\n";
     }
 }
 ?>

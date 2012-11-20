@@ -6,7 +6,8 @@ class clock extends module
 	public $title = '';
 
 	public $schedule = false;
-	public $refresh = false;
+	public $refresh = true;
+	public $target = 'date';
 
 	public $width = 2;
 	public $height = 2;
@@ -22,6 +23,12 @@ class clock extends module
 		return $header;
 	}
 	public function content() {
-		return '<div style="width: 200px; margin-left: auto; margin-right: auto; margin-top: 25px;"><div id="' . $this->id . '_clock"></div></div>';
+		return '<div style="width: 200px; margin-left: auto; margin-right: auto; margin-top: 25px;"><div id="' . $this->id . '_clock"></div>
+		<div class="date tcenter">' . date('d/m/Y', time()) . '</div>
+		</div>';
+	}
+
+	public function ajax() {
+		return '<div class="date tcenter">' . date('d/m/Y', time()) . '</div>';
 	}
 }

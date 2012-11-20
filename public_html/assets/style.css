@@ -80,3 +80,5 @@ a { color: #FFFFFF; }
     z-index: 2;
     text-align: center;
 }
+
+.tcenter { text-align: center; width: 100%; }

@@ -78,13 +78,18 @@ jQuery(document).ready(function() {
 });
 
 var refreshers = new Array();
-function registerRefresh(widget_name) {
+var refresher_targets = new Array();
+function registerRefresh(widget_name, widget_target) {
+    if (!widget_target) {
+        widget_target = 'module_content';
+    }
     refreshers.push(widget_name);
+    refresher_targets.push(widget_target);
 }
 
 var rerender = function(data) {
-    if (jQuery('#'+this.target+' .module_content').html() != data) {
-        jQuery('#'+this.target+' .module_content').html(data);
+    if (jQuery('#'+this.target+' .'+this.element).html() != data) {
+        jQuery('#'+this.target+' .'+this.element).html(data);
     }
     loadingComplete();
 }
@@ -97,6 +102,7 @@ function handleRefreshers() {
             jQuery.ajax({
                 url: '?do=loadWidget&widget=' + refreshers[x],
                 target: refreshers[x],
+                element: refresher_targets[x],
                 success: rerender
             });
         }
