@@ -88,7 +88,7 @@ function registerRefresh(widget_name, widget_target) {
 }
 
 var rerender = function(data) {
-    if (jQuery('#'+this.target+' .'+this.element).html() != data) {
+    if (jQuery('#'+this.target+' .'+this.element).html().length != data.length) {
         jQuery('#'+this.target+' .'+this.element).html(data);
     }
     loadingComplete();
