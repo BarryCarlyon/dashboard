@@ -77,7 +77,9 @@ class minecraftModule extends module
 		}
 		// process
 		$html = '<table style="width: 100%;">';
-		$html .= '<tr><td colspan="2">' . $data['Details']['hostname'] . '</td></tr>';
+		if (isset($data['Details']['hostname'])) {
+			$html .= '<tr><td colspan="2">' . $data['Details']['hostname'] . '</td></tr>';
+		}
 		if (isset($data['Details']['version'])) {
 			$html .= '<tr><td>Version</td><td>' . $data['Details']['version'] . '</td></tr>';
 		}

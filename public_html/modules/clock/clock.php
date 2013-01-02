@@ -3,7 +3,7 @@
 class clockModule extends module
 {
 	public $id = 'clock';
-	public $title = '';
+	public $title = 'Clock';
 
 	public $schedule = false;
 	public $refresh = true;

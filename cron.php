@@ -20,9 +20,9 @@ foreach ($dir as $path => $fileinfo) {
         $base = basename($path);
         if (is_file($path . '/' . $base . '.php')) {
             include($path . '/' . $base . '.php');
-            if (method_exists($base, 'cron')) {
+            $call = $base . 'Module';
+            if (method_exists($call, 'cron')) {
                 echo 'found ' . $base . "\n";
-                $call = $base . 'Module';
                 $widgets[$base] = new $call();
             }
         }
