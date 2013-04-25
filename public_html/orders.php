@@ -167,11 +167,12 @@ $images = array(
     'Tesco'     => 'tesco.ico',
     'Play'      => 'play.ico',
     'os'        => 'cash_register.png',
+    'stock'     => 'car_taxi.png',
     'Phone'     => 'phone.png',
 );
 
 $odd = true;
-$colspan = 9;
+$colspan = 10;
 
 echo '<tbody>';
 while ($row = $mssql->row($result)) {
@@ -198,6 +199,7 @@ while ($row = $mssql->row($result)) {
     }
 
     $order_type = orderType($row['ReferenceNumber']);
+
     $type = '';
     if (array_key_exists($order_type, $images)) {
         $url = $images[$order_type];
@@ -208,6 +210,18 @@ while ($row = $mssql->row($result)) {
         }
     } else {
         $type = substr($order_type, 0, 1);
+    }
+
+    $stock_type = '';
+    $comment_type = orderType($row['Comment']);
+    if ($comment_type == 'os' || $order_type == 'os') {
+        $comment_type = 'stock';
+    }
+    if (array_key_exists($comment_type, $images)) {
+        $url = $images[$comment_type];
+        if (!empty($url)) {
+            $stock_type = '<img src="/assets/icons/' . $url . '" style="width: 16px;" />';
+        }
     }
 
     $format = $format_open = 'H:i:s';
@@ -222,6 +236,7 @@ while ($row = $mssql->row($result)) {
     echo '<tr class="' . ($odd ? 'odd' : 'even') . '">';
     $odd = $odd ? false : true;
     echo '<td style="text-align: center; padding: 1px 3px; display: block;">' . $type . '</td>';
+    echo '<td style="text-align: center; padding: 1px 3px; display: block;">' . $stock_type . '</td>';
     echo '<td style="text-align: center;" class="id">' . $row['ID'] . '</td>';
     echo '<td style="text-align: center; border-left: 1px solid #000000; border-right: 1px solid #000000;">' . date($format_open, strtotime($row['Time'])) . '</td>';
 
@@ -253,11 +268,11 @@ while ($row = $mssql->row($result)) {
 }
 echo '</tbody>';
 
-    $average = todaysAverageComplete();
+    $stats = todaysAverageComplete();
 
     $c = date_default_timezone_get();
     date_default_timezone_set('UTC');
-    $average = date('H:i:s', $average);
+    $average = date('H:i:s', $stats['average']);
     date_default_timezone_set($c);
 
     echo '<thead>
@@ -265,11 +280,11 @@ echo '</tbody>';
     <td colspan="' . $colspan . '" style="text-align: center;">
         <div style="position: absolute; top: 0px; right: 0px;">' . date('H:i:s', time()) . '</div>
         Total: ' . $counter . ' Open Orders, Recent/Today: ' . $recent . '
-        <br />Average Completion: ' . $average . ' (Orders Opened and Closed Today)
+        <br />Average Completion: ' . $average . ' (Orders Opened and Closed Today) Total: &pound;' . number_format($stats['value'], 2) . '
     </td>
 </tr>
 <tr>
-    <th colspan="2">ID</th>
+    <th colspan="3">ID</th>
     <th>Opened</th>
     <th colspan="2">Customer</th>
     <th>Ref</th>
