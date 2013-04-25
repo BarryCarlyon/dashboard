@@ -55,12 +55,20 @@ var hideStatusTimeout = false;
 jQuery(document).ready(function() {
     jQuery('#loading').hide();
     jQuery('#status').hide();
+    jQuery('#play').hide();
     reloader = setInterval('reloadTable()', 5000);
 
-    jQuery('#data').hover(function() {
+    jQuery('#pause').click(function(e) {
+        e.preventDefault();
+        jQuery(this).hide();
+        jQuery('#play').show();
         jQuery('#loading').html('Paused').show();
         clearTimeout(reloader);
-    }, function() {
+    });
+    jQuery('#play').click(function(e) {
+        e.preventDefault();
+        jQuery(this).hide();
+        jQuery('#pause').show();
         jQuery('#loading').html('Loading').show();
         reloader = setInterval('reloadTable()', 5000);
         reloadTable();
@@ -117,8 +125,12 @@ function hideStatus() {
 </head>
 <body>
 
-<div id="loading" style="position: absolute; top: 0px; left: 0px;">Loading</div>
+<div id="loading">Loading</div>
 <div id="status"></div>
+<div id="controls">
+    <a href="#nowhere" id="pause">Pause</a>
+    <a href="#nowhere" id="play">Play</a>
+</div>
 
 <div id="data">
 
