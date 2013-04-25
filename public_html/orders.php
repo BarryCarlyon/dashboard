@@ -167,6 +167,7 @@ $images = array(
     'Tesco'     => 'tesco.ico',
     'Play'      => 'play.ico',
     'os'        => 'cash_register.png',
+    'Phone'     => 'phone.png',
 );
 
 $odd = true;
@@ -249,11 +250,19 @@ while ($row = $mssql->row($result)) {
 }
 echo '</tbody>';
 
+    $average = todaysAverageComplete();
+
+    $c = date_default_timezone_get();
+    date_default_timezone_set('UTC');
+    $average = date('H:i:s', $average);
+    date_default_timezone_set($c);
+
     echo '<thead>
 <tr>
     <td colspan="' . $colspan . '" style="text-align: center;">
         <div style="position: absolute; top: 0px; right: 0px;">' . date('H:i:s', time()) . '</div>
         Total: ' . $counter . ' Open Orders, Recent/Today: ' . $recent . '
+        <br />Average Completion: ' . $average . ' (Orders Opened and Closed Today)
     </td>
 </tr>
 <tr>
