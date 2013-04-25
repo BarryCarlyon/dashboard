@@ -210,17 +210,20 @@ while ($row = $mssql->row($result)) {
         $type = substr($order_type, 0, 1);
     }
 
-    $format = 'H:i:s';
+    $format = $format_open = 'H:i:s';
     if ($time < $then) {
 //        $format .= ' d/m/Y';
         $format = 'd/m/Y';
+    }
+    if (strtotime($row['Time']) < $then) {
+        $format_open = 'd/m/Y';
     }
 
     echo '<tr class="' . ($odd ? 'odd' : 'even') . '">';
     $odd = $odd ? false : true;
     echo '<td style="text-align: center; padding: 1px 3px; display: block;">' . $type . '</td>';
     echo '<td style="text-align: center;" class="id">' . $row['ID'] . '</td>';
-    echo '<td style="text-align: center; border-left: 1px solid #000000; border-right: 1px solid #000000;">' . date($format, strtotime($row['Time'])) . '</td>';
+    echo '<td style="text-align: center; border-left: 1px solid #000000; border-right: 1px solid #000000;">' . date($format_open, strtotime($row['Time'])) . '</td>';
 
     // get customer
     $sub_query = 'SELECT LastName, Zip FROM Customer WHERE ID = ' . $row['CustomerID'];
