@@ -265,7 +265,7 @@ while ($row = $mssql->row($result)) {
         $row['ReferenceNumber'] = str_replace(' Order No.', '', $row['ReferenceNumber']);
     }
 
-    echo '<td style="">' . $row['ReferenceNumber'] . '</td>';
+    echo '<td style="" nowrap="nowrap">' . $row['ReferenceNumber'] . '</td>';
     echo '<td style="" class="comment">' . $row['Comment'] . '</td>';
 
     echo '<td style="text-align: center; ' . $color . '">' . date($format, $time) . '</td>';
