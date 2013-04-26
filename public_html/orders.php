@@ -174,7 +174,7 @@ $twoweek = time() - (60 * 60 * 24 * 14);
 $counter = $recent = 0;
 
 $images = array(
-    'Web'       => 'www_page.png',
+    'Web'       => 'fa.ico',
     'eBay'      => 'ebay.png',
     'Amazon'    => 'amazon.ico',
     'Tesco'     => 'tesco.ico',
@@ -217,7 +217,7 @@ while ($row = $mssql->row($result)) {
     if (array_key_exists($order_type, $images)) {
         $url = $images[$order_type];
         if (!empty($url)) {
-            $type = '<img src="/assets/icons/' . $url . '" style="width: 16px;" />';
+            $type = '<img src="/assets/icons/' . $url . '" style="width: 16px; height: 16px;" />';
         } else {
             $type = substr($order_type, 0, 1);
         }
@@ -233,7 +233,7 @@ while ($row = $mssql->row($result)) {
     if (array_key_exists($comment_type, $images)) {
         $url = $images[$comment_type];
         if (!empty($url)) {
-            $stock_type = '<img src="/assets/icons/' . $url . '" style="width: 16px;" />';
+            $stock_type = '<img src="/assets/icons/' . $url . '" style="width: 16px; height: 16px;" />';
         }
     }
 
@@ -248,8 +248,8 @@ while ($row = $mssql->row($result)) {
 
     echo '<tr class="' . ($odd ? 'odd' : 'even') . '">';
     $odd = $odd ? false : true;
-    echo '<td style="text-align: center; padding: 1px 3px; display: block;">' . $type . '</td>';
-    echo '<td style="text-align: center; padding: 1px 3px; display: block;">' . $stock_type . '</td>';
+    echo '<td style="text-align: center; padding: 1px 3px; display: block; height: 16px;">' . $type . '</td>';
+    echo '<td style="text-align: center; padding: 1px 3px; display: block; height: 16px;">' . $stock_type . '</td>';
     echo '<td style="text-align: center;" class="id">' . $row['ID'] . '</td>';
     echo '<td style="text-align: center; border-left: 1px solid #000000; border-right: 1px solid #000000;">' . date($format_open, strtotime($row['Time'])) . '</td>';
 
