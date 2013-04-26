@@ -20,6 +20,11 @@ if ($operation) {
 
                 $mssql = new mssql();
 
+                // Add History
+//                INSERT INTO OrderHistory(OrderID,CashierID,Comment) VALUES (410957, 86, 'Bats');
+                $query = 'INSERT INTO [OrderHistory](OrderID,CashierID,Comment) VALUES (' . $id . ', 55, \'' . $newcomment . '\')';
+                $mssql->query($query);
+                // Update the Order
                 $query = 'UPDATE [Order] SET Comment = \'' . $newcomment . '\', LastUpdated = getdate() WHERE ID = ' . $id;
                 $mssql->query($query);
                 $query = 'SELECT Comment FROM [Order] WHERE ID = ' . $id;
@@ -246,8 +251,10 @@ while ($row = $mssql->row($result)) {
     $sub_row = $mssql->row($sub_result);
     echo '<td>' . $sub_row['LastName'] . '</td><td style="border-right: 1px solid #000000;" nowrap="nowrap">' . $sub_row['Zip'] . '</td>';
 
-    if ($order_type == 'Amazon') {
-        $row['ReferenceNumber'] = str_replace(' Order No', '', $row['ReferenceNumber']);
+    if ($order_type == 'Tesco' || $order_type == 'eBay') {
+        $row['ReferenceNumber'] = substr($row['ReferenceNumber'], 14);
+    } else {
+        $row['ReferenceNumber'] = str_replace(' Order No.', '', $row['ReferenceNumber']);
     }
 
     echo '<td style="">' . $row['ReferenceNumber'] . '</td>';
@@ -272,7 +279,7 @@ echo '</tbody>';
 
     $c = date_default_timezone_get();
     date_default_timezone_set('UTC');
-    $average = date('H:i:s', $stats['average']);
+    $average = date('H:i:s', $stats['average']) . '/' . $stats['total'];
     date_default_timezone_set($c);
 
     echo '<thead>
