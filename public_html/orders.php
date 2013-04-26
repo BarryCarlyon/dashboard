@@ -2,6 +2,9 @@
 
 date_default_timezone_set('Europe/London');
 
+include('/Users/barrycarlyon/scripts/mssql/common.php');
+$mssql = new mssql();
+
 $operation = isset($_REQUEST['operation']) ? $_REQUEST['operation'] : false;
 if ($operation) {
     header('Content-Type: application/json');
@@ -15,14 +18,11 @@ if ($operation) {
         case 'comment':
             $newcomment = isset($_POST['comment']) ? $_POST['comment'] : false;
             $id = isset($_POST['id']) ? $_POST['id'] : false;
-            if ($newcomment !== false && $id !== false) {
-                include('/Users/barrycarlyon/scripts/mssql/common.php');
-
-                $mssql = new mssql();
-
+            $cashier = isset($_POST['cashier']) ? $_POST['cashier'] : false;
+            if ($newcomment !== false && $id !== false && $cashier !== false) {
                 // Add History
 //                INSERT INTO OrderHistory(OrderID,CashierID,Comment) VALUES (410957, 86, 'Bats');
-                $query = 'INSERT INTO [OrderHistory](OrderID,CashierID,Comment) VALUES (' . $id . ', 55, \'' . $newcomment . '\')';
+                $query = 'INSERT INTO [OrderHistory](OrderID,CashierID,Comment) VALUES (' . $id . ', ' . $cashier . ', \'' . $newcomment . '\')';
                 $mssql->query($query);
                 // Update the Order
                 $query = 'UPDATE [Order] SET Comment = \'' . $newcomment . '\', LastUpdated = getdate() WHERE ID = ' . $id;
@@ -81,6 +81,13 @@ jQuery(document).ready(function() {
 
     jQuery('#data').on('click', '.comment', function() {
         var id = jQuery(this).parents('tr').find('.id').html();
+
+        var cashier = jQuery('#cashier').val();
+        if (!cashier) {
+            alert('Pick a Cashier top left!');
+            return;
+        }
+
         var newcomment = prompt('New Comment for ' + id, jQuery(this).html());
         if (newcomment != null) {
             clearTimeout(hideStatusTimeout);
@@ -90,7 +97,8 @@ jQuery(document).ready(function() {
                 data: {
                     operation: 'comment',
                     id: id,
-                    comment: newcomment
+                    comment: newcomment,
+                    cashier: cashier
                 },
                 success: function(data) {
                     if (data.ok) {
@@ -130,6 +138,10 @@ function hideStatus() {
 </head>
 <body>
 
+<form id="cashier_form">
+<?php echo cashierDropdown(); ?>
+</form>
+
 <div id="loading">Loading</div>
 <div id="status"></div>
 <div id="controls">
@@ -145,10 +157,6 @@ function hideStatus() {
 <table style="width:100%">
 
 <?php
-
-include('/Users/barrycarlyon/scripts/mssql/common.php');
-
-$mssql = new mssql();
 
 $query = 'SELECT * FROM [Order] WHERE Closed = 0 ORDER BY LastUpdated DESC';
 $result = $mssql->query($query);
@@ -262,7 +270,7 @@ while ($row = $mssql->row($result)) {
 
     echo '<td style="text-align: center; ' . $color . '">' . date($format, $time) . '</td>';
     $color = '';
-    if ($row['Total'] >= 40) {
+    if ($row['Total'] >= 40 || $row['Total'] == 0) {
         $color = 'background: orange;';
     }
     echo '<td style="text-align: right; ' . $color . '">&pound;' . number_format($row['Total'], 2) . '</td>';

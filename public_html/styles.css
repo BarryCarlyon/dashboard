@@ -53,7 +53,8 @@ tbody tr.odd {background: #EFEFEF;}
 .comment { background: #EFEFEF; border-bottom: 1px solid #000000; }
 .comment:hover { cursor: pointer; background: #8F8F8F !important; }
 
-#controls { position: absolute; top: 0px; left: 0px; }
+#controls, #cashier_form { position: absolute; top: 0px; left: 0px; }
 #status, #loading { position: absolute; bottom: 0px; background: #000000; color: #FFFFFF; padding: 5px; }
 #status { right: 0px; }
 #loading { left: 0px; }
+#cashier_form { left: 100px; }
