@@ -16,24 +16,28 @@ if ($operation) {
 
     switch ($operation) {
         case 'comment':
-            $newcomment = isset($_POST['comment']) ? $_POST['comment'] : false;
+            $newcomment = isset($_POST['comment']) ? addslashes($_POST['comment']) : false;
             $id = isset($_POST['id']) ? $_POST['id'] : false;
             $cashier = isset($_POST['cashier']) ? $_POST['cashier'] : false;
             if ($newcomment !== false && $id !== false && $cashier !== false) {
-                // Add History
-//                INSERT INTO OrderHistory(OrderID,CashierID,Comment) VALUES (410957, 86, 'Bats');
-                $query = 'INSERT INTO [OrderHistory](OrderID,CashierID,Comment) VALUES (' . $id . ', ' . $cashier . ', \'' . $newcomment . '\')';
-                $mssql->query($query);
-                // Update the Order
-                $query = 'UPDATE [Order] SET Comment = \'' . $newcomment . '\', LastUpdated = getdate() WHERE ID = ' . $id;
-                $mssql->query($query);
-                $query = 'SELECT Comment FROM [Order] WHERE ID = ' . $id;
-                $result = $mssql->query($query);
-                $row = $mssql->row($result);
-                if ($row['Comment'] == $newcomment) {
-                    $response['ok'] = true;
+                if (!is_numeric($cashier) || !is_numeric($id)) {
+                    $response['error'] = 'WHAT ARE YOU DOING?';
                 } else {
-                    $response['error'] = '';
+                    // Add History
+    //                INSERT INTO OrderHistory(OrderID,CashierID,Comment) VALUES (410957, 86, 'Bats');
+                    $query = 'INSERT INTO [OrderHistory](OrderID,CashierID,Comment) VALUES (' . $id . ', ' . $cashier . ', \'' . $newcomment . '\')';
+                    $mssql->query($query);
+                    // Update the Order
+                    $query = 'UPDATE [Order] SET Comment = \'' . $newcomment . '\', LastUpdated = getdate() WHERE ID = ' . $id;
+                    $mssql->query($query);
+                    $query = 'SELECT Comment FROM [Order] WHERE ID = ' . $id;
+                    $result = $mssql->query($query);
+                    $row = $mssql->row($result);
+                    if ($row['Comment'] == $newcomment) {
+                        $response['ok'] = true;
+                    } else {
+                        $response['error'] = '';
+                    }
                 }
             }
     }
@@ -185,7 +189,7 @@ $images = array(
 );
 
 $odd = true;
-$colspan = 10;
+$colspan = 12;
 
 echo '<tbody>';
 while ($row = $mssql->row($result)) {
@@ -257,6 +261,21 @@ while ($row = $mssql->row($result)) {
     $sub_query = 'SELECT LastName, Zip FROM Customer WHERE ID = ' . $row['CustomerID'];
     $sub_result = $mssql->query($sub_query);
     $sub_row = $mssql->row($sub_result);
+
+    $pb_query = 'SELECT * FROM cl_PickBatch WHERE OrderNumber = ' . $row['ID'];
+    $pb_result = $mssql->query($pb_query);
+    $pb_rows = mssql_num_rows($pb_result);
+//    $sub_row['LastName'] .= ' - ' . $pb_rows;
+    echo '<td style="border-right: 1px solid #000000;" nowrap="nowrap">';
+    if ($pb_rows == 1) {
+        echo 'Picking';
+    } else if ($pb_rows) {
+        echo 'PickErr';
+    } else {
+        echo '';
+    }
+    echo '</td>';
+
     echo '<td>' . $sub_row['LastName'] . '</td><td style="border-right: 1px solid #000000;" nowrap="nowrap">' . $sub_row['Zip'] . '</td>';
 
     if ($order_type == 'Tesco' || $order_type == 'eBay') {
@@ -269,6 +288,11 @@ while ($row = $mssql->row($result)) {
     echo '<td style="" class="comment">' . $row['Comment'] . '</td>';
 
     echo '<td style="text-align: center; ' . $color . '">' . date($format, $time) . '</td>';
+
+    $item_query = 'SELECT * FROM OrderEntry WHERE OrderId = ' . $row['ID'];
+    $item_result = $mssql->query($item_query);
+    echo '<td style="text-align: center;">' . mssql_num_rows($item_result) . '</td>';
+
     $color = '';
     if ($row['Total'] >= 40 || $row['Total'] == 0) {
         $color = 'background: orange;';
@@ -287,7 +311,7 @@ echo '</tbody>';
 
     $c = date_default_timezone_get();
     date_default_timezone_set('UTC');
-    $average = date('H:i:s', $stats['average']) . '/' . $stats['total'];
+    $average = date('H:i:s', $stats['average']) . '/' . $stats['total'] . '/' . $stats['zero'];
     date_default_timezone_set($c);
 
     echo '<thead>
@@ -295,16 +319,18 @@ echo '</tbody>';
     <td colspan="' . $colspan . '" style="text-align: center;">
         <div style="position: absolute; top: 0px; right: 0px;">' . date('H:i:s', time()) . '</div>
         Total: ' . $counter . ' Open Orders, Recent/Today: ' . $recent . '
-        <br />Average Completion: ' . $average . ' (Orders Opened and Closed Today) Total: &pound;' . number_format($stats['value'], 2) . '
+        <br />Average Completion: ' . $average . ' (Orders Opened and Closed Today ' . date('H:i:s', $stats['first']) . ') Total: &pound;' . number_format($stats['value'], 2) . '
     </td>
 </tr>
 <tr>
     <th colspan="3">ID</th>
     <th>Opened</th>
+    <th>Picking</th>
     <th colspan="2">Customer</th>
     <th>Ref</th>
     <th>Comment (Click to Update)</th>
     <th>Update</th>
+    <th>Items</th>
     <th>Total</th>
 </tr>
 </thead>

@@ -47,7 +47,7 @@ table {
 }
 
 th, td, p, div { font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace; }
-th { font-weight: 700; border-bottom: 1px solid #000000; }
+th { font-weight: 700; border-bottom: 1px solid #000000; border-right: 1px solid #FFFFFF; background: #EEEEEE; }
 tbody td { padding: 0px 2px; border: 0px; margin: 0px; }
 tbody tr.odd {background: #EFEFEF;}
 .comment { background: #EFEFEF; border-bottom: 1px solid #000000; }
