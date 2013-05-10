@@ -24,9 +24,9 @@ foreach ($dir as $path => $fileinfo) {
 }
 
 // run ajax
-include(__DIR__ . '/../lib/ajax.php');
+include(DASHBOARD_LIB_PATH . 'ajax.php');
 
-$enabled_modules = $enabled_modules_pos = array();
+$enabled_modules = array();
 
 $state = DASHBOARD_CACHE_PATH . 'state.json';
 if (is_file($state)) {
