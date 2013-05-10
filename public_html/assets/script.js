@@ -59,19 +59,17 @@ jQuery(document).ready(function() {
 
     jQuery('body').on('click', '.removewidget', function(e) {
         e.preventDefault();
-        jQuery(this).closest('.gs_w').slideUp(function() {
-            jQuery(this).closest('.gs_w').clone().slideDown(function() {
-                jQuery(this).removeClass('gs_w');
-                jQuery(this).find('.module_content').html('');
-                jQuery(this).find('.module_control').slideUp();
-                jQuery(this).find('.module_title').show();
-                jQuery(this).attr('data-sizex-open', jQuery(this).attr('data-sizex'));
-                jQuery(this).attr('data-sizey-open', jQuery(this).attr('data-sizey'));
-                jQuery(this).removeAttr('data-col').removeAttr('data-row').removeAttr('data-sizex').removeAttr('data-sizey');
-            }).appendTo('#widget_source .widgets');
-            gridster.remove_widget(jQuery(this).closest('.gs_w'), function() {
-                saveState();
-            });
+        jQuery(this).closest('.gs_w').clone().slideDown(function() {
+            jQuery(this).removeClass('gs_w');
+            jQuery(this).find('.module_content').html('');
+            jQuery(this).find('.module_control').slideUp();
+            jQuery(this).find('.module_title').show();
+            jQuery(this).attr('data-sizex-open', jQuery(this).attr('data-sizex'));
+            jQuery(this).attr('data-sizey-open', jQuery(this).attr('data-sizey'));
+            jQuery(this).removeAttr('data-col').removeAttr('data-row').removeAttr('data-sizex').removeAttr('data-sizey');
+        }).appendTo('#widget_source .widgets');
+        gridster.remove_widget(jQuery(this).closest('.gs_w'), function() {
+            saveState();
         });
     });
 

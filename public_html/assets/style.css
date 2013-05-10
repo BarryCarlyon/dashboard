@@ -9,11 +9,28 @@ ul, li { list-style: none; margin: 0px; padding: 0px; }
 
 hr { border: 0px; display: block; clear: both; }
 
-.error { border: 1px solid #FF0000; }
-.error_normal { background: #990000; }
+.error { border: 1px solid #FF0000; padding: 5px; text-align: center;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+.error_normal { background: #990000;
+    box-shadow: inset 0px 0px 5px 5px #660000;
+    -moz-box-shadow: inset 0px 0px 5px 5px #660000;
+    -webkit-box-shadow: inset 0px 0px 5px 5px #660000;
+}
 .error_ok { background: #009900; }
 
-.gs_w { background: #3F3F3F; color: #FFFFFF; overflow: auto; }
+.gs_w { background: #3F3F3F; color: #FFFFFF; overflow: auto;
+
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+/*    box-shadow: 5px 5px 5px 5px #555555;*/
+    box-shadow: inset 0px 0px 5px 5px #666666;
+    -moz-box-shadow: inset 0px 0px 5px 5px #666666;
+    -webkit-box-shadow: inset 0px 0px 5px 5px #666666;
+}
 .module { padding: 10px; }
 .gridster .dragging { border: 1px solid #FFFFFF; }
 a { color: #FFFFFF; }

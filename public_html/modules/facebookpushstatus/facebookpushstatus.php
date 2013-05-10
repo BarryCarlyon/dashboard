@@ -37,9 +37,9 @@ class facebookpushstatusModule extends module {
 				$html .= '</table>';
 				return $html;
 			} else {
-				return $this->error('JSON Error');
+				return $this->error('Facebook: JSON Error');
 			}
 		}
-		return $this->error('Error');
+		return $this->error('Facebook: Error (No Data) cURL');
 	}
 }

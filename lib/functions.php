@@ -42,7 +42,7 @@ class module {
             'normal'
         );
         $severity = $levels[$severity];
-        return '<div id="error error_' . $severity . '">' . $message . '</div>';
+        return '<div class="error error_' . $severity . '">' . $message . '</div>';
     }
 
     protected function loadcache($url)

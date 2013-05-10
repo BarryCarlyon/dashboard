@@ -36,23 +36,7 @@ if (is_file($state)) {
     $enabled_modules = $data;
 }
 
-/*
-
-$state_items = DASHBOARD_CACHE_PATH . 'state_items.json';
-if (is_file($state_items)) {
-    $data = file_get_contents($state_items);
-    $data = json_decode($data);
-
-    $pos = file_get_contents(DASHBOARD_CACHE_PATH . 'state.json');
-    $pos = json_decode($pos, TRUE);
-
-    $enabled_modules = $data;
-    $enabled_modules_pos = $pos;
-}
-*/
-
-// cache test
-// write test
+// cache/write test
 $cache = DASHBOARD_CACHE_PATH . 'test';
 if (false === @fopen($cache, 'w')) {
     $cache_test = '<div id="initilise" class="error_normal">';
@@ -65,22 +49,3 @@ if (false === @fopen($cache, 'w')) {
 }
 
 include(__DIR__ . '/template.phtml');
-
-return;
-/*
-<div id="widget_source" class="col">
-<p class="title">Widgets</p>
-<ul class="widgets">
-<?php
-foreach ($widgets as $base => $class) {
-    echo '<li id="' . $class->id . '" data-sizex-open="' . (isset($class->width)? $class->width : 1) . '" data-sizey-open="' . (isset($class->height)? $class->height : 1) . '">' . $class->titleOnly() . '</li>';
-}
-?>
-</ul>
-</div>
-
-<div id="loading">cake</div>
-
-</body>
-</html>
-*/
