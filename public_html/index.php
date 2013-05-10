@@ -6,7 +6,7 @@ define('DASHBOARD_URL_MODULES', DASHBOARD_URL_ROOT . 'modules/');
 define('DASHBOARD_MODULES_PATH', __DIR__ . '/modules/');
 define('DASHBOARD_LIB_PATH', __DIR__ . '/../lib/');
 
-include(DASHBOARD_LIB_PATH . 'functions.php');
+include(DASHBOARD_LIB_PATH . 'module.class.php');
 
 $widgets = array();
 $body = '';
