@@ -14,13 +14,21 @@ switch ($do) {
         break;
 
     case 'saveState':
-        $data = $_POST['data'];
+        $data = json_decode($_POST['data']);
+        $items = json_decode($_POST['items']);
+
+        $state = array();
+        foreach ($data as $index => $dims) {
+            $dims->name = $items[$index];
+            $state[] = $dims;
+        }
+
+        $state = json_encode($state);
+//        $state = print_r($data,true);
+//        $state .= print_r($items,true);
+
         $fp = fopen(DASHBOARD_CACHE_PATH . 'state.json', 'w');
-        fwrite($fp, $data);
-        fclose($fp);
-        $items = $_POST['items'];
-        $fp = fopen(DASHBOARD_CACHE_PATH . 'state_items.json', 'w');
-        fwrite($fp, $items);
+        fwrite($fp, $state);
         fclose($fp);
         break;
 }

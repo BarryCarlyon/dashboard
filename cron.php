@@ -12,20 +12,22 @@ define('DASHBOARD_LIB_PATH', __DIR__ . '/lib/');
 include(DASHBOARD_LIB_PATH . 'functions.php');
 include(DASHBOARD_LIB_PATH . 'Crontab.class.php');
 
-$widgets = array();
+$widgets = $enabled_modules = array();
 // module load
-$dir = new FilesystemIterator(DASHBOARD_MODULES_PATH);
-foreach ($dir as $path => $fileinfo) {
-    if ($fileinfo->isDir()) {
-        $base = basename($path);
-        if (is_file($path . '/' . $base . '.php')) {
-            include($path . '/' . $base . '.php');
-            $call = $base . 'Module';
-            if (method_exists($call, 'cron')) {
-                echo 'found ' . $base . "\n";
-                $widgets[$base] = new $call();
-            }
-        }
+
+$state = DASHBOARD_CACHE_PATH . 'state.json';
+if (is_file($state)) {
+    $data = file_get_contents($state);
+    $data = json_decode($data,true);
+
+    $enabled_modules = $data;
+}
+foreach ($enabled_modules as $module) {
+    include(DASHBOARD_MODULES_PATH . $module['name'] . '/' . $module['name'] . '.php');
+    $call = $module['name'] . 'Module';
+    if (method_exists($call, 'cron')) {
+        echo 'found ' . $module['name'] . "\n";
+        $widgets[$module['name']] = new $call();
     }
 }
 
@@ -44,7 +46,6 @@ if (is_file(DASHBOARD_CACHE_PATH . 'cronschedule.json')) {
     }
 }
 
-//print_r($schedule);
 $pids = array();
 
 foreach ($widgets as $name => $widget) {

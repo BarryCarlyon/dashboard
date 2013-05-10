@@ -26,51 +26,17 @@ foreach ($dir as $path => $fileinfo) {
 // run ajax
 include(__DIR__ . '/../lib/ajax.php');
 
-?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-gb" xml:lang="en-gb">
-<head>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/ui-darkness/jquery-ui.css" />
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
-    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    <link rel="stylesheet" type="text/css" href="assets/style.css" />
-    <script type="text/javascript" src="assets/script.js"></script>
-    <script type="text/javascript">
-        google.load('visualization', '1', {packages: ['corechart']});
-    </script>
-    <script type="text/javascript">
-jQuery(document).ready(function() {
-<?php
-foreach ($widgets as $name => $widget) {
-    if (isset($widget->refresh) && $widget->refresh) {
-        echo 'registerRefresh(\'' . $name . '\', \'' . (isset($widget->target) ? $widget->target : 'module_content') . '\')' . "\n";
-    }
-}
-?>
-});
-</script>
+$enabled_modules = $enabled_modules_pos = array();
 
-<script type="text/javascript" src="assets/jquery.gridster.min.js"></script>
-<link rel="stylesheet" type="text/css" href="assets/jquery.gridster.min.css" />
+$state = DASHBOARD_CACHE_PATH . 'state.json';
+if (is_file($state)) {
+    $data = file_get_contents($state);
+    $data = json_decode($data,true);
 
-</head>
-<body>
-<?php
-// write test
-$cache = DASHBOARD_CACHE_PATH . 'test';
-if (false === fopen($cache, 'w')) {
-    echo '<div id="initilise" class="error_normal">';
-    echo '<p>Cache is not Writable, seeing what I can do</p>';
-    echo '</div>';
-} else {
-    echo '<div id="initilise" class="error_ok">';
-    echo '<p>Cache is Ok, Loading...</p>';
-    echo '</div>';
+    $enabled_modules = $data;
 }
 
-?>
-<div class="gridster"><ul><?php
+/*
 
 $state_items = DASHBOARD_CACHE_PATH . 'state_items.json';
 if (is_file($state_items)) {
@@ -80,17 +46,28 @@ if (is_file($state_items)) {
     $pos = file_get_contents(DASHBOARD_CACHE_PATH . 'state.json');
     $pos = json_decode($pos, TRUE);
 
-    foreach ($data as $item) {
-        $state = array_shift($pos);
-        echo '<li id="' . $widgets[$item]->id . '" data-col="' . $state['col'] . '" data-row="' . $state['row'] . '" data-sizex="' . $state['size_x'] . '" data-sizey="' . $state['size_y'] . '">';
-        echo $widgets[$item]->generate();
-        echo '</li>';
-        unset($widgets[$item]);
-    }
+    $enabled_modules = $data;
+    $enabled_modules_pos = $pos;
+}
+*/
+
+// cache test
+// write test
+$cache = DASHBOARD_CACHE_PATH . 'test';
+if (false === @fopen($cache, 'w')) {
+    $cache_test = '<div id="initilise" class="error_normal">';
+    $cache_test .= '<p>Cache is not Writable, seeing what I can do</p>';
+    $cache_test .= '</div>';
+} else {
+    $cache_test = '<div id="initilise" class="error_ok">';
+    $cache_test .= '<p>Cache is Ok, Loading...</p>';
+    $cache_test .= '</div>';
 }
 
-?></ul></div>
+include(__DIR__ . '/template.phtml');
 
+return;
+/*
 <div id="widget_source" class="col">
 <p class="title">Widgets</p>
 <ul class="widgets">
@@ -106,3 +83,4 @@ foreach ($widgets as $base => $class) {
 
 </body>
 </html>
+*/

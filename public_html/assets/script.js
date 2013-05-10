@@ -57,7 +57,8 @@ jQuery(document).ready(function() {
         });
     });
 
-    jQuery('body').on('click', '.removewidget', function() {
+    jQuery('body').on('click', '.removewidget', function(e) {
+        e.preventDefault();
         jQuery(this).closest('.gs_w').slideUp(function() {
             jQuery(this).closest('.gs_w').clone().slideDown(function() {
                 jQuery(this).removeClass('gs_w');
@@ -120,6 +121,8 @@ function saveState() {
             items.push(jQuery(this).attr('id'));
         }
     });
+    console.log(JSON.stringify(gridster.serialize(), null, 2));
+    console.log(JSON.stringify(items));
     jQuery.post('?do=saveState',
         {
             data: JSON.stringify(gridster.serialize(), null, 2),

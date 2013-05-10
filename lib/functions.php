@@ -87,6 +87,8 @@ class module {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
         }
 
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405');
+
         $response = curl_exec($ch);
 
         $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
