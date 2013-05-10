@@ -109,16 +109,13 @@ class JsonModule extends Module {
     public function content()
     {
         $response = false;
-        // pacific time
         $data = $this->cache($this->url, 3600);
         if ($data) {
             $data = json_decode($data);
             if (json_last_error() == JSON_ERROR_NONE) {
                 $response = $data;
-//                return $data;
             }
         }
-//        return false;
         return $this->parse($response);
     }
 }
