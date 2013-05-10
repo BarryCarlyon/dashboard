@@ -119,4 +119,24 @@ class JsonModule extends Module {
         return $this->parse($response);
     }
 }
+class XmlModule extends Module {
+    public function __construct() {
+        require_once(DASHBOARD_LIB_PATH . 'simplepie.inc');
+    }
+    public function content() {
+        $response = false;
+
+        $feed = new SimplePie();
+        $feed->set_feed_url($this->urls);
+        $feed->set_cache_location(DASHBOARD_CACHE_PATH);
+        $feed->init();
+        $feed->handle_content_type();
+
+        if (count($feed->get_items())) {
+            $response = $feed;
+        }
+
+        return $this->parse($response);
+    }
+}
 

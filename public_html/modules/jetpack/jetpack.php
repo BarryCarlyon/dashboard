@@ -1,34 +1,27 @@
 <?php
 
-class jetpackModule extends module {
-		public $id = 'jetpack';
-		public $title = 'jetpack RSS';
+class jetpackModule extends XmlModule {
+	public $id = 'jetpack';
+	public $title = 'jetpack RSS';
 
-		public $schedule = '*/5 * * * *';
-		public $refresh = true;
+	public $schedule = '*/5 * * * *';
+	public $refresh = true;
 
-		public $width = 3;
-		public $height = 2;
+	public $width = 3;
+	public $height = 2;
 
-		public function cron() {
-			return;
-		}
+	protected $urls = array(
+		'feed://wordpress.org/support/rss/plugin/jetpack',
+	);
 
-		public function content() {
-			$urls = array();
-			$urls[] = 'feed://wordpress.org/support/rss/plugin/jetpack';
+	public function cron() {
+		return;
+	}
 
-			$html = '';
-			require_once(DASHBOARD_LIB_PATH . 'simplepie.inc');
+	protected function parse($feed) {
+		$html = '<h4>JetPack</h4>';
 
-			$feed = new SimplePie();
-			$feed->set_feed_url($urls);
-			$feed->set_cache_location(DASHBOARD_CACHE_PATH);
-			$feed->set_cache_duration(1800);
-			$feed->init();
-			$feed->handle_content_type();
-
-			$html .= '<h4>Jetpack</h4>';
+		if ($feed) {
 			$html .= '<ul>';
 
 			$updated = array();
@@ -58,5 +51,8 @@ class jetpackModule extends module {
 			$html .= '</ul>';
 
 			return $html;
+		} else {
+		return $html . $this->error('No Feed Items');
 		}
+	}
 }

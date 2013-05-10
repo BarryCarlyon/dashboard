@@ -1,36 +1,28 @@
 <?php
 
-class extendrssModule extends module {
-		public $id = 'extendrss';
-		public $title = 'Extend RSS';
+class extendrssModule extends XmlModule {
+	public $id = 'extendrss';
+	public $title = 'Extend RSS';
 
-		public $schedule = '*/5 * * * *';
-		public $refresh = true;
+	public $schedule = '*/5 * * * *';
+	public $refresh = true;
 
-		public $width = 3;
-		public $height = 2;
+	public $width = 3;
+	public $height = 2;
 
-		public function cron() {
-			return;
-		}
+	protected $urls = array(
+			'feed://wordpress.org/support/rss/plugin/jetpack-extras',
+			'feed://wordpress.org/support/rss/plugin/wp-zombaio',
+	);
 
-		public function content() {
-			$urls = array();
-			$urls[] = 'feed://wordpress.org/support/rss/plugin/jetpack-extras';
-			$urls[] = 'feed://wordpress.org/support/rss/plugin/wp-zombaio';
-//			$urls[] = 'feed://wordpress.org/support/rss/plugin/wp-radio-playlist';
+	public function cron() {
+		return;
+	}
 
+	protected function parse($feed) {
+		$html = '<h4>Extend</h4>';
 
-			$html = '';
-			require_once(DASHBOARD_LIB_PATH . 'simplepie.inc');
-
-			$feed = new SimplePie();
-			$feed->set_feed_url($urls);
-			$feed->set_cache_location(DASHBOARD_CACHE_PATH);
-			$feed->init();
-			$feed->handle_content_type();
-
-			$html .= '<h4>Extend</h4>';
+		if ($feed) {
 			$html .= '<ul>';
 
 			$updated = array();
@@ -60,5 +52,8 @@ class extendrssModule extends module {
 			$html .= '</ul>';
 
 			return $html;
+		} else {
+		return $html . $this->error('No Feed Items');
 		}
+	}
 }
