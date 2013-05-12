@@ -7,7 +7,7 @@ class pingerModule extends module {
 	public $schedule = '*/5 * * * *';
 	public $refresh = true;
 
-	public $width = 1;
+	public $width = 2;
 	public $height = 1;
 
 	public function cron() {
@@ -48,11 +48,9 @@ class pingerModule extends module {
 		$html = '<h4>Pinger</h4>';
 
 		foreach ($data as $word => $time) {
-			$html .= $word . ': ' . $time . ' S<br />';
+			$html .= $word . ': ' . $time . '<br />';
 		}
 
 		return $html;
-
-//		return print_r($data,true);
 	}
 }

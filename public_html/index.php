@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('Europe/London');
+
 define('DASHBOARD_CACHE_PATH', __DIR__ . '/../cache/');
 define('DASHBOARD_URL_ROOT', dirname($_SERVER['SCRIPT_NAME']));
 define('DASHBOARD_URL_MODULES', str_replace('//', '/', DASHBOARD_URL_ROOT . '/modules/'));
