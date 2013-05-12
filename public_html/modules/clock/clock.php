@@ -1,13 +1,11 @@
 <?php
 
-class clockModule extends module
-{
+class clockModule extends module {
 	public $id = 'clock';
 	public $title = 'Clock';
 
 	public $schedule = false;
 	public $refresh = true;
-	public $target = 'date';
 
 	public $width = 2;
 	public $height = 2;

@@ -1,9 +1,14 @@
 <?php
 
 class pingerModule extends module {
-	public $schedule = '*/5 * * * *';
 	public $id = 'pinger';
 	public $title = 'Pinger';
+
+	public $schedule = '*/5 * * * *';
+	public $refresh = false;
+
+	public $width = 1;
+	public $height = 1;
 
 	public function cron() {
 		echo 'called';

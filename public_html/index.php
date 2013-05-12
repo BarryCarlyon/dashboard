@@ -1,7 +1,7 @@
 <?php
 
 define('DASHBOARD_CACHE_PATH', __DIR__ . '/../cache/');
-define('DASHBOARD_URL_ROOT', str_replace(array('index.php', 'test.php'), '', $_SERVER['SCRIPT_NAME']));
+define('DASHBOARD_URL_ROOT', $_SERVER['SCRIPT_NAME']);
 define('DASHBOARD_URL_MODULES', DASHBOARD_URL_ROOT . 'modules/');
 define('DASHBOARD_MODULES_PATH', __DIR__ . '/modules/');
 define('DASHBOARD_LIB_PATH', __DIR__ . '/../lib/');

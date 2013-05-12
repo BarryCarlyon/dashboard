@@ -4,7 +4,7 @@ class jetpackModule extends XmlModule {
 	public $id = 'jetpack';
 	public $title = 'jetpack RSS';
 
-	public $schedule = '*/5 * * * *';
+	public $schedule = false;
 	public $refresh = true;
 
 	public $width = 3;
@@ -13,10 +13,6 @@ class jetpackModule extends XmlModule {
 	protected $urls = array(
 		'feed://wordpress.org/support/rss/plugin/jetpack',
 	);
-
-	public function cron() {
-		return;
-	}
 
 	protected function parse($feed) {
 		$html = '<h4>JetPack</h4>';

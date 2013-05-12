@@ -4,7 +4,7 @@ class extendrssModule extends XmlModule {
 	public $id = 'extendrss';
 	public $title = 'Extend RSS';
 
-	public $schedule = '*/5 * * * *';
+	public $schedule = false;
 	public $refresh = true;
 
 	public $width = 3;
@@ -14,10 +14,6 @@ class extendrssModule extends XmlModule {
 		'feed://wordpress.org/support/rss/plugin/jetpack-extras',
 		'feed://wordpress.org/support/rss/plugin/wp-zombaio',
 	);
-
-	public function cron() {
-		return;
-	}
 
 	protected function parse($feed) {
 		$html = '<h4>Extend</h4>';

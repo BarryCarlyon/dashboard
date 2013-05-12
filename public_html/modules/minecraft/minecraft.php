@@ -1,11 +1,12 @@
 <?php
 
-class minecraftModule extends module
-{
-	public $schedule = '*/5 * * * *';
+class minecraftModule extends module {
 	public $id = 'minecraft';
 	public $title = 'Minecraft';
+
+	public $schedule = '*/5 * * * *';
 	public $refresh = true;
+
 	public $width = 2;
 	public $height = 1;
 

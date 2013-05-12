@@ -1,9 +1,12 @@
 <?php
 
-class halo4challengesModule extends module
-{
+class halo4challengesModule extends module {
 	public $id = 'halo4challenges';
 	public $title = 'Halo 4 Challenges';
+
+	public $schedule = false;
+	public $refresh = false;
+
 	public $width = 2;
 	public $height = 3;
 

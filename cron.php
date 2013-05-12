@@ -1,6 +1,5 @@
 <?php
 
-header('Content-Type: text');
 // bump out to make sure we run at 1 second past the minute
 sleep(1);
 
@@ -9,7 +8,7 @@ define('DASHBOARD_CACHE_PATH', __DIR__ . '/cache/');
 define('DASHBOARD_MODULES_PATH', __DIR__ . '/public_html/modules/');
 define('DASHBOARD_LIB_PATH', __DIR__ . '/lib/');
 
-include(DASHBOARD_LIB_PATH . 'functions.php');
+include(DASHBOARD_LIB_PATH . 'module.class.php');
 include(DASHBOARD_LIB_PATH . 'Crontab.class.php');
 
 $widgets = $enabled_modules = array();
@@ -25,15 +24,13 @@ if (is_file($state)) {
 foreach ($enabled_modules as $module) {
     include(DASHBOARD_MODULES_PATH . $module['name'] . '/' . $module['name'] . '.php');
     $call = $module['name'] . 'Module';
-    if (method_exists($call, 'cron')) {
-        echo 'found ' . $module['name'] . "\n";
+    if ($call->schedule) {
         $widgets[$module['name']] = new $call();
     }
 }
 
 $next_min = mktime(date('H', time()), date('i', time()), 0);
 
-//echo '<pre>';
 echo date('r', time()) . "\n";
 
 // load the schedule
@@ -66,9 +63,6 @@ foreach ($widgets as $name => $widget) {
 $fp = fopen(DASHBOARD_CACHE_PATH . 'cronschedule.json', 'w');
 fwrite($fp, json_encode($schedule));
 fclose($fp);
-
-//print_r($schedule);
-//print_r($widgets);
 
 while (count($pids) > 0) {
     $ended = pcntl_waitpid(-1, $status, WNOHANG);
