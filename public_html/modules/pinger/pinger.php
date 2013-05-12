@@ -21,16 +21,17 @@ class pingerModule extends module {
 		foreach ($urls as $url => $name) {
 			// first test that it's there
 
-			
-			$start = time();
+
+			$start = microtime(true);
 
 			$command = 'cd ' . DASHBOARD_TRASH_DIR . ' && wget -q --page-requisites ' . $url;
 			echo 'Running ' . $command . "\n";
 			exec($command);
 
-			$end = time();
+			$end = microtime(true);
 
 			$diff = $end - $start;
+			$diff = number_format($diff, 6);
 
 			echo 'Did ' . $url . ' - ' . $diff . "\n";
 

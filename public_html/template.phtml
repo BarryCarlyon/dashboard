@@ -1,21 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-gb" xml:lang="en-gb">
 <head>
-    <script type="text/javascript" src="/offline/jquery.min.js"></script>
-    <script type="text/javascript" src="/offline/jquery-ui.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/offline/jquery-ui.css" />
-<!--
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/ui-darkness/jquery-ui.css" />
--->
-    <script type="text/javascript" src="/offline/swfobject.js"></script>
+    <script type="text/javascript" src="<?php echo DASHBOARD_URL_ROOT; ?>assets/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo DASHBOARD_URL_ROOT; ?>assets/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo DASHBOARD_URL_ROOT; ?>assets/jquery-ui.css" />
+    <script type="text/javascript" src="<?php echo DASHBOARD_URL_ROOT; ?>assets/swfobject.js"></script>
 
-<!--
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
--->
-    <link rel="stylesheet" type="text/css" href="assets/style.css" />
-    <script type="text/javascript" src="assets/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo DASHBOARD_URL_ROOT; ?>assets/style.css" />
+    <script type="text/javascript" src="<?php echo DASHBOARD_URL_ROOT; ?>assets/script.js"></script>
+
 <!--
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript">
@@ -35,8 +28,8 @@ foreach ($widgets as $name => $widget) {
 });
 </script>
 
-    <script type="text/javascript" src="assets/jquery.gridster.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="assets/jquery.gridster.min.css" />
+    <script type="text/javascript" src="<?php echo DASHBOARD_URL_ROOT; ?>assets/jquery.gridster.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo DASHBOARD_URL_ROOT; ?>assets/jquery.gridster.min.css" />
 </head>
 <body>
 <div id="loading">Loading...</div>
