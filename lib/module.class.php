@@ -72,6 +72,12 @@ class Module {
         }
         return $data;
     }
+    protected function cacheData($data, $file) {
+        $file = md5($file);
+        $fp = fopen(DASHBOARD_CACHE_PATH . $file, 'w');
+        fwrite($fp, $data);
+        fclose($fp);
+    }
 
     protected function fetch($url, $method = 'get')
     {

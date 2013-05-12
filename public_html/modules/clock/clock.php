@@ -10,6 +10,8 @@ class clockModule extends module {
 	public $width = 2;
 	public $height = 2;
 
+	public $ajax_target = 'date';
+
 	public function header() {
 		$header = '
 <script type="text/javascript">
