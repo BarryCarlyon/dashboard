@@ -11,8 +11,8 @@ class extendrssModule extends XmlModule {
 	public $height = 2;
 
 	protected $urls = array(
-			'feed://wordpress.org/support/rss/plugin/jetpack-extras',
-			'feed://wordpress.org/support/rss/plugin/wp-zombaio',
+		'feed://wordpress.org/support/rss/plugin/jetpack-extras',
+		'feed://wordpress.org/support/rss/plugin/wp-zombaio',
 	);
 
 	public function cron() {
@@ -53,7 +53,7 @@ class extendrssModule extends XmlModule {
 
 			return $html;
 		} else {
-		return $html . $this->error('No Feed Items');
+			return $html . $this->error('No Feed Items');
 		}
 	}
 }

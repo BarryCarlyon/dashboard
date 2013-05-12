@@ -52,7 +52,7 @@ class jetpackModule extends XmlModule {
 
 			return $html;
 		} else {
-		return $html . $this->error('No Feed Items');
+			return $html . $this->error('No Feed Items');
 		}
 	}
 }
