@@ -21,19 +21,56 @@ hr { border: 0px; display: block; clear: both; }
 }
 .error_ok { background: #009900; }
 
-.gs_w { background: #3F3F3F; color: #FFFFFF; overflow: auto;
+a { color: #FFFFFF; }
+.gridster .dragging { border: 1px solid #FFFFFF; }
+.change_col { background-image: url('../icons/edit.png'); }
+.delete-icon { background-image: url('../icons/delete.png'); }
+.toggle { cursor: pointer; }
+.hidden { display: none; }
 
+.gridster { z-index: 1; }
+
+#loading {
+    z-index: 3;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    background-image: url('../icons/loading.gif');
+}
+#loading, .delete-icon {
+    width: 16px;
+    height: 0px;
+    padding-top: 16px;
+    overflow: hidden;
+    display: inline-block;
+    margin: 0px 1px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+}
+
+#initilise {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    color: #FFFFFF;
+    z-index: 2;
+    text-align: center;
+}
+.tcenter { text-align: center; width: 100%; }
+
+.gs_w { background: #3F3F3F; color: #FFFFFF; overflow: hidden; }
+.gs_w .module { padding: 10px; }
+
+h1, h2, h3, h4, h5, h6 { margin: 0px; }
+
+.gs_w {
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-/*    box-shadow: 5px 5px 5px 5px #555555;*/
     box-shadow: inset 0px 0px 5px 5px #666666;
     -moz-box-shadow: inset 0px 0px 5px 5px #666666;
     -webkit-box-shadow: inset 0px 0px 5px 5px #666666;
 }
-.module { padding: 10px; }
-.gridster .dragging { border: 1px solid #FFFFFF; }
-a { color: #FFFFFF; }
 
 #widget_source {
     position: absolute;
@@ -61,41 +98,4 @@ a { color: #FFFFFF; }
     margin: 2px 0px;
 }
 
-#loading {
-    z-index: 3;
-    position: absolute;
-    left: 5px;
-    top: 5px;
-}
-#loading, .delete-icon {
-    width: 16px;
-    height: 0px;
-    padding-top: 16px;
-    overflow: hidden;
-    display: inline-block;
-    margin: 0px 1px;
-    cursor: pointer;
-    background-repeat: no-repeat;
-}
-.change_col { background-image: url('../icons/edit.png'); }
-.delete-icon { background-image: url('../icons/delete.png'); }
-#loading { background-image: url('../icons/loading.gif'); }
-
 .module_control { height: 100%; background: #9F9F9F; }
-
-.toggle { cursor: pointer; }
-.hidden { display: none; }
-
-.gridster {
-    z-index: 1;
-}
-#initilise {
-    position: absolute;
-    top: 0px;
-    width: 100%;
-    color: #FFFFFF;
-    z-index: 2;
-    text-align: center;
-}
-
-.tcenter { text-align: center; width: 100%; }
