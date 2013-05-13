@@ -64,6 +64,13 @@ if (is_file(DASHBOARD_CACHE_PATH . 'cronschedule.json')) {
 }
 
 $force = isset($argv[1]) ? $argv[1] : false;
+$task = isset($argv[2]) ? $argv[2] : false;
+if ($task) {
+    echo 'Force task ' . $task . "\n";
+    do_fork($task);
+    pids();
+    exit;
+}
 
 foreach ($widgets as $name => $widget) {
     if (isset($schedule[$name])) {
@@ -84,18 +91,24 @@ $fp = fopen(DASHBOARD_CACHE_PATH . 'cronschedule.json', 'w');
 fwrite($fp, json_encode($schedule));
 fclose($fp);
 
-while (count($pids) > 0) {
-    $ended = pcntl_waitpid(-1, $status, WNOHANG);
-    foreach ($pids as $key => $pid) {
-        if ($pid == $ended) {
-            unset($pids[$key]);
-            echo "\n" . $ended . ' has ended' . "\n";
-            echo count($pids) . ' still running' . "\n";
+pids();
+
+function pids() {
+    global $pids;
+
+    while (count($pids) > 0) {
+        $ended = pcntl_waitpid(-1, $status, WNOHANG);
+        foreach ($pids as $key => $pid) {
+            if ($pid == $ended) {
+                unset($pids[$key]);
+                echo "\n" . $ended . ' has ended' . "\n";
+                echo count($pids) . ' still running' . "\n";
+            }
         }
     }
-}
 
-echo "\n" . 'All Done' . "\n";
+    echo "\n" . 'All Done' . "\n";
+}
 
 function do_fork($name) {
     global $pids, $widgets;
