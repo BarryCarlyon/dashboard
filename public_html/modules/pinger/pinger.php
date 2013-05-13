@@ -15,17 +15,26 @@ class pingerModule extends module {
         $urls = array(
             'http://barrycarlyon.co.uk/' => 'BC',
             'http://www.fredaldous.co.uk/' => 'FA',
+            'http://live.sagepay.co.uk/' => 'SagePay',
         );
         $results = array();
 
         foreach ($urls as $url => $name) {
             // first test that it's there
             $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
             curl_exec($ch);
             $r = curl_getinfo($ch);
             curl_close($ch);
 
-            if ($r['http_code'] == 0) {
+            $code_start = substr($r['http_code'], 0, 1);
+            if (
+                $r['http_code'] == 0
+                ||
+                $code_start == 4
+                ||
+                $code_start == 5
+                ) {
                 // request failed
                 echo $url . ' Offline' . "\n";
                 $results[$name] = 'Offline';
@@ -61,5 +70,14 @@ class pingerModule extends module {
         }
 
         return $html;
+    }
+
+    public function options() {
+        $options = array(
+            'url' => array(
+                'type' => 'multiple',
+            )
+        );
+        return $options;
     }
 }

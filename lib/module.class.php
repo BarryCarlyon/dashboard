@@ -30,7 +30,22 @@ class Module {
         $html = '<div class="module_control">';
         $html .= '<h5>Options</h5>';
         if (method_exists($this, 'options')) {
-            $html .= $this->options();
+//            $html .= $this->options();
+            $options = $this->options();
+            foreach ($options as $name => $data) {
+                $append = $class = '';
+                switch ($data['type']) {
+                    case 'multiple':
+                        $name .= '[]';
+                        $append = 'woo';
+                        $class = 'duplicate';
+                    case 'text':
+                        $class = $class ? $class : '';
+                        $html .= '<input type="text" name="' . $name . '" class="' . $class . '" />' . $append;
+                        break;
+                }
+                $html .= '<br />';
+            }
         }
         $html .= '<a href="#delete" class="delete-icon removewidget">Delete</a>';
         $html .= '</div>';

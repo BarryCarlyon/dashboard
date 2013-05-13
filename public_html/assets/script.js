@@ -1,4 +1,5 @@
 var gridster;
+var refreshers_timer;
 
 jQuery(document).ready(function() {
     loadingStart();
@@ -20,7 +21,7 @@ jQuery(document).ready(function() {
         }
     });
 
-    setInterval('handleRefreshers()', 30000);
+    refreshers_timer = setInterval('handleRefreshers()', 30000);
 
     gridster = jQuery('.gridster > ul').gridster({
         widget_margins: [5, 5],
@@ -48,12 +49,14 @@ jQuery(document).ready(function() {
 
     jQuery('.module_control').slideUp();
     jQuery('.gridster').on('dblclick', 'li', function() {
+        clearInterval(refreshers_timer);
         jQuery(this).find('.module_content').slideUp();
         jQuery(this).find('.module_control').slideDown();
 
         jQuery(this).on('mouseleave', function() {
             jQuery(this).find('.module_content').slideDown();
             jQuery(this).find('.module_control').slideUp();
+            refreshers_timer = setInterval('handleRefreshers()', 30000);
         });
     });
 
