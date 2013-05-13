@@ -63,9 +63,11 @@ if (is_file(DASHBOARD_CACHE_PATH . 'cronschedule.json')) {
     }
 }
 
+$force = isset($argv[1]) ? $argv[1] : false;
+
 foreach ($widgets as $name => $widget) {
     if (isset($schedule[$name])) {
-        if ($schedule[$name] < time()) {
+        if ($schedule[$name] < time() || $force) {
             // run the task
             do_fork($name);
             // reschedule
