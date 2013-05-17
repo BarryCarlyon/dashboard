@@ -2,8 +2,9 @@
 
 date_default_timezone_set('Europe/London');
 
+include('/Users/barrycarlyon/scripts/mssql/config.php');
 include('/Users/barrycarlyon/scripts/mssql/common.php');
-$mssql = new mssql();
+$mssql = new mssql($mssql_database);
 
 $operation = isset($_REQUEST['operation']) ? $_REQUEST['operation'] : false;
 if ($operation) {
@@ -56,7 +57,7 @@ if (!$table) {
 <head>
     <title>Work Orders</title>
 
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/jquery.min.js"></script>
 <script type="text/javascript">
 var locked = false;
 var reloader = false;
