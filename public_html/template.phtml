@@ -40,7 +40,7 @@ foreach ($widgets as $name => $widget) {
 if (count($enabled_modules)) {
     foreach ($enabled_modules as $item) {
         echo '<li id="' . $widgets[$item['name']]->id . '" data-col="' . $item['col'] . '" data-row="' . $item['row'] . '" data-sizex="' . $item['size_x'] . '" data-sizey="' . $item['size_y'] . '">';
-        echo $widgets[$item['name']]->generate();
+        echo $widgets[$item['name']]->generate(true);
         echo '</li>';
         unset($widgets[$item['name']]);
     }

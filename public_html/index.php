@@ -8,8 +8,6 @@ define('DASHBOARD_URL_MODULES', str_replace('//', '/', DASHBOARD_URL_ROOT . '/mo
 define('DASHBOARD_MODULES_PATH', __DIR__ . '/modules/');
 define('DASHBOARD_LIB_PATH', __DIR__ . '/../lib/');
 
-include(DASHBOARD_LIB_PATH . 'autoload.php');
-
 include(DASHBOARD_LIB_PATH . 'module.class.php');
 
 $widgets = array();
