@@ -50,6 +50,7 @@ jQuery(document).ready(function() {
     jQuery('.module_control').slideUp();
     jQuery('.gridster').on('dblclick', 'li', function() {
         clearInterval(refreshers_timer);
+        jQuery('#initilise').html('<p>PAUSED</p>').slideDown();
         jQuery(this).find('.module_content').slideUp();
         jQuery(this).find('.module_control').slideDown();
 
@@ -57,6 +58,8 @@ jQuery(document).ready(function() {
             jQuery(this).find('.module_content').slideDown();
             jQuery(this).find('.module_control').slideUp();
             refreshers_timer = setInterval('handleRefreshers()', 30000);
+            jQuery('#initilise').html('<p>PENDING</p>');
+            handleRefreshers();
         });
     });
 
@@ -136,9 +139,11 @@ function saveState() {
 function loadingStart() {
     loadingtrack++;
     jQuery('#loading').show();
+    jQuery('#loading').html(loadingtrack);
 }
 function loadingComplete() {
     loadingtrack--;
+    jQuery('#loading').html(loadingtrack);
     if (loadingtrack <= 0) {
         loadingtrack = 0;
         jQuery('#loading').hide();

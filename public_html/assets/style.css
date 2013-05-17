@@ -99,3 +99,8 @@ h1, h2, h3, h4, h5, h6 { margin: 0px; }
 }
 
 .module_control { height: 100%; background: #9F9F9F; }
+
+.removewidget, .editwidget {
+    
+}
+
