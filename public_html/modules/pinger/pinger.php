@@ -18,7 +18,10 @@ class pingerModule extends module {
 
     public function cron() {
         // do in order not multi fork
-        $urls = $this->urls;
+//        $urls = $this->urls;
+        $urls = $this->loadCache('pinger_settings');
+        $urls = json_decode($urls);
+
         $results = array();
 
         foreach ($urls as $url => $name) {
@@ -77,15 +80,33 @@ class pingerModule extends module {
     }
 
     public function options() {
-        $urls = $this->urls;
+//        $urls = $this->urls;
+        $urls = $this->loadCache('pinger_settings');
+        $urls = json_decode($urls);
+
         $options = array(
             'url' => array(
                 'name' => 'Name:Url',
                 'type' => 'multiple',
                 'keys' => true,
+                'key_name' => 'name',
                 'values' => $urls,
             )
         );
         return $options;
+    }
+
+    public function updateSettings($data) {
+        $names = $data['name'];
+        $urls = $data['url'];
+
+        $data = array();
+        foreach ($names as $index => $name) {
+            $data[$name] = $urls[$index];
+        }
+
+        $this->cacheData(json_encode($data), 'pinger_settings');
+
+        echo 'Updated';
     }
 }

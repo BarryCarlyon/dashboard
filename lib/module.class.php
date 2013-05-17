@@ -31,31 +31,37 @@ class Module {
         $html .= '<h5>Options</h5>';
         if (method_exists($this, 'options')) {
             $html .= '<br /><a href="#edit" class="edit-icon editwidget">Edit Widget</a>';
-//            $html .= $this->options();
-            /*
-            $options = $this->options();
-            foreach ($options as $name => $data) {
-                $append = $class = '';
-                switch ($data['type']) {
-                    case 'multiple':
-                        $html .= $data['name'] . '<br />';
-                        foreach ($data['values'] as $index => $value) {
-                            if ($data['keys']) {
-                                $html .= '<input type="text" name="' . $name . '[]" class="duplicate" value="' . $index . '" style="width: 40%;" />: ';
-                            }
-                            $html .= '<input type="text" name="' . $name . '[]" class="duplicate" value="' . $value . '" style="width: 40%;" /><br />';
-                        }
-                        break;
-                    case 'text':
-                        $html .= '<input type="text" name="' . $name . '" />';
-                        break;
-                }
-                $html .= '<br />';
-            }
-            */
         }
         $html .= '<br /><a href="#delete" class="delete-icon removewidget">Remove Widget</a>';
         $html .= '</div>';
+        return $html;
+    }
+    public function editControls() {
+        $html = '<form action="" method="post" id="editControls">';
+
+        $options = $this->options();
+        foreach ($options as $name => $data) {
+            $append = $class = '';
+            switch ($data['type']) {
+                case 'multiple':
+                    $html .= $data['name'] . '<br />';
+                    foreach ($data['values'] as $index => $value) {
+                        if ($data['keys']) {
+                            $html .= '<input type="text" name="' . $data['key_name'] . '[]" class="duplicate" value="' . $index . '" style="width: 40%;" />: ';
+                        }
+                        $html .= '<input type="text" name="' . $name . '[]" class="duplicate" value="' . $value . '" style="width: 40%;" /><br />';
+                    }
+                    break;
+                case 'text':
+                    $html .= '<input type="text" name="' . $name . '" />';
+                    break;
+            }
+            $html .= '<br />';
+        }
+
+        $html .= '</form>';
+        // submit
+
         return $html;
     }
 

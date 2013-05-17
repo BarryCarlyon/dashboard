@@ -79,6 +79,40 @@ jQuery(document).ready(function() {
         });
     });
 
+    jQuery('body').on('click', '.editwidget', function(e) {
+        e.preventDefault();
+        var id = jQuery(this).closest('.gs_w').attr('id');
+        jQuery.ajax({
+            url: '?do=loadoptions&widget=' + id,
+            success: function(data) {
+                jQuery('<div id="editdialog">' + data + '</div>').dialog({
+                    modal: true,
+                    width: 400,
+                    height: 400,
+                    title: 'Editing a Widget',
+                    buttons: {
+                        'Save Widget': function() {
+                            var values = jQuery('#editdialog form').serialize();
+                            jQuery('#editdialog').html('Updating');
+                            jQuery.ajax({
+                                url: '?do=updateoptions&widget=' + id,
+                                data: values,
+                                type: 'POST',
+                                success: function(data) {
+                                    jQuery('#editdialog').html(data);
+                                    setTimeout("jQuery('#editdialog').dialog('close')", 5000);
+                                }
+                            })
+                        },
+                        Cancel: function() {
+                            jQuery(this).dialog('close');
+                        }
+                    }
+                });
+            },
+        });
+    });
+
     loadingComplete();
 });
 
