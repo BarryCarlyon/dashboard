@@ -36,6 +36,12 @@ if (is_file($state)) {
     $data = json_decode($data,true);
 
     $enabled_modules = $data;
+    // validate
+    foreach ($enabled_modules as $index => $module) {
+        if (!is_file(DASHBOARD_MODULES_PATH . $module['name'] . '/' . $module['name'] . '.php')) {
+            unset($enabled_modules[$index]);
+        }
+    }
 }
 
 // cache/write test
