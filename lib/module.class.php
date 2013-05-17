@@ -1,11 +1,11 @@
 <?php
 
 class Module {
-    public function generate()
+    public function generate($first = false)
     {
         return '<div class="module" id="' . $this->id . '_widget">
     <div class="module_title" style="display: none;">' . $this->title . '</div>
-    ' . $this->bodyOnly() . '
+    ' . $this->bodyOnly($first) . '
     ' . $this->controls() . '
 </div>';
     }
@@ -17,12 +17,12 @@ class Module {
     ' . $this->controls() . '
 </div>';
     }
-    public function bodyOnly()
+    public function bodyOnly($first = false)
     {
         return '
     <div id="' . $this->id . '_content" class="module_content">
-        ' . (method_exists($this, 'header') ? $this->header() : '') . '
-        ' . (method_exists($this, 'content') ? $this->content() : '') . '
+        ' . (method_exists($this, 'header') ? $this->header($first) : '') . '
+        ' . (method_exists($this, 'content') ? $this->content($first) : '') . '
     </div>';
     }
 
@@ -30,24 +30,31 @@ class Module {
         $html = '<div class="module_control">';
         $html .= '<h5>Options</h5>';
         if (method_exists($this, 'options')) {
+            $html .= '<br /><a href="#edit" class="edit-icon editwidget">Edit Widget</a>';
 //            $html .= $this->options();
+            /*
             $options = $this->options();
             foreach ($options as $name => $data) {
                 $append = $class = '';
                 switch ($data['type']) {
                     case 'multiple':
-                        $name .= '[]';
-                        $append = 'woo';
-                        $class = 'duplicate';
+                        $html .= $data['name'] . '<br />';
+                        foreach ($data['values'] as $index => $value) {
+                            if ($data['keys']) {
+                                $html .= '<input type="text" name="' . $name . '[]" class="duplicate" value="' . $index . '" style="width: 40%;" />: ';
+                            }
+                            $html .= '<input type="text" name="' . $name . '[]" class="duplicate" value="' . $value . '" style="width: 40%;" /><br />';
+                        }
+                        break;
                     case 'text':
-                        $class = $class ? $class : '';
-                        $html .= '<input type="text" name="' . $name . '" class="' . $class . '" />' . $append;
+                        $html .= '<input type="text" name="' . $name . '" />';
                         break;
                 }
                 $html .= '<br />';
             }
+            */
         }
-        $html .= '<a href="#delete" class="delete-icon removewidget">Delete</a>';
+        $html .= '<br /><a href="#delete" class="delete-icon removewidget">Remove Widget</a>';
         $html .= '</div>';
         return $html;
     }
