@@ -15,6 +15,7 @@ class pingModule extends module {
         $data = json_decode($data);
 
         $html = '
+Ping Local
 <table>
     <tr><td>IP:</td><td>' . $data->lastIP . '</td></tr>
     <tr><td>Ping:</td><td>' . $data->average . '</td></tr>
@@ -40,7 +41,7 @@ class pingModule extends module {
             $data->lastIPTime = date('H', time());
         }
 
-        $exec = 'ping -c 5 google.com';
+        $exec = '/sbin/ping -c 5 google.com';
         exec($exec, $output);
 
         $items = array();

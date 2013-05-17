@@ -74,6 +74,9 @@ if ($task) {
 
 foreach ($widgets as $name => $widget) {
     if (isset($schedule[$name])) {
+        echo $name . ' ' . date('H:i:s', $schedule[$name]) . '<' . date('H:i:s', time());
+        echo ' ' . (time() - $schedule[$name]) . ' left';
+        echo "\n";
         if ($schedule[$name] < time() || $force) {
             // run the task
             do_fork($name);

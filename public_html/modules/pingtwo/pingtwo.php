@@ -15,6 +15,7 @@ class pingtwoModule extends module {
         $data = json_decode($data);
 
         $html = '
+Ping Web
 <table>
     <tr><td>IP:</td><td>' . $data->lastIP . '</td></tr>
     <tr><td>Ping:</td><td>' . $data->average . '</td></tr>

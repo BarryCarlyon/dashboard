@@ -4,7 +4,7 @@ class faModule extends module {
     public $id = 'fa';
     public $title = 'FA';
 
-    public $schedule = '0 * * * *';
+    public $schedule = '*/5 * * * *';
     public $refresh = true;
 
     public $width = 2;
@@ -69,6 +69,7 @@ class faModule extends module {
                 echo 'Failed ' . $state . ' - ' . $e->getMessage() . "\n";
             }
         }
+        $response['last'] = time();
 
         $this->cacheData(json_encode($response), 'fa');
     }
@@ -81,10 +82,13 @@ class faModule extends module {
 
         $html .= '<table style="width: 100%;">';
         foreach ($data as $state => $count) {
-            $html .= '<tr><td>' . ucwords(str_replace('_', ' ', $state)) . ':</td>
+            if ($state != 'last'){
+                $html .= '<tr><td>' . ucwords(str_replace('_', ' ', $state)) . ':</td>
                 <td>' . $count . '</td></tr>';
+            }
         }
         $html .= '</table>';
+        $html .= '<p style="text-align: center">' . date('H:i:s', $data->last) . '</p>';
 
         return $html;
     }

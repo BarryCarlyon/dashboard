@@ -15,6 +15,7 @@ class pingthreeModule extends module {
         $data = json_decode($data);
 
         $html = '
+Ping Photography
 <table>
     <tr><td>IP:</td><td>' . $data->lastIP . '</td></tr>
     <tr><td>Ping:</td><td>' . $data->average . '</td></tr>
@@ -60,7 +61,11 @@ class pingthreeModule extends module {
             $total += $item;
             $count++;
         }
-        $average = $total / $count;
+        if ($count == 0) {
+            $average = 'offline';
+        } else {
+            $average = $total / $count;
+        }
 
         $data->average = $average;
         $data->myping = time();

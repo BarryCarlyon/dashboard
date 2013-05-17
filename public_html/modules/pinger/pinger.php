@@ -4,7 +4,7 @@ class pingerModule extends module {
     public $id = 'pinger';
     public $title = 'Pinger';
 
-    public $schedule = '*/5 * * * *';
+    public $schedule = '*/30 * * * *';
     public $refresh = true;
 
     public $width = 2;
@@ -48,7 +48,7 @@ class pingerModule extends module {
                 echo $url . ' Online Speed test' . "\n";
                 $start = microtime(true);
 
-                $command = 'cd ' . DASHBOARD_TRASH_DIR . ' && wget -q --page-requisites ' . $url;
+                $command = 'cd ' . DASHBOARD_TRASH_DIR . ' && /opt/local/bin/wget -q --page-requisites ' . $url;
                 echo 'Running ' . $command . "\n";
                 exec($command);
 
