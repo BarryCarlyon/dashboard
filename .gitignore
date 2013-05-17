@@ -1,2 +1,5 @@
-public_html/assets/icons/set
+ph/assets/icons/set
 .DS_Store
+cache
+config.php
+public.key

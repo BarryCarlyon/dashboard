@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-gb" xml:lang="en-gb">
+<head>
+    <script type="text/javascript" src="<?php echo DASHBOARD_URL_ROOT; ?>assets/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo DASHBOARD_URL_ROOT; ?>assets/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo DASHBOARD_URL_ROOT; ?>assets/jquery-ui.min.css" />
+    <script type="text/javascript" src="<?php echo DASHBOARD_URL_ROOT; ?>assets/swfobject.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="<?php echo DASHBOARD_URL_ROOT; ?>assets/style.css" />
+    <script type="text/javascript" src="<?php echo DASHBOARD_URL_ROOT; ?>assets/script.js"></script>
+
+<!--
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load('visualization', '1', {packages: ['corechart']});
+    </script>
+-->
+
+    <script type="text/javascript">
+jQuery(document).ready(function() {
+<?php
+foreach ($widgets as $name => $widget) {
+    if (isset($widget->refresh) && $widget->refresh) {
+        echo 'registerRefresh(\'' . $name . '\', \'' . (isset($widget->ajax_target) ? $widget->ajax_target : 'module_content') . '\')' . "\n";
+    }
+}
+?>
+});
+</script>
+
+    <script type="text/javascript" src="<?php echo DASHBOARD_URL_ROOT; ?>assets/jquery.gridster.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo DASHBOARD_URL_ROOT; ?>assets/jquery.gridster.min.css" />
+</head>
+<body>
+<div id="loading">Loading...</div>
+<?php echo $cache_test; ?>
+
+<div class="gridster"><ul>
+<?php
+if (count($enabled_modules)) {
+    foreach ($enabled_modules as $item) {
+        echo '<li id="' . $widgets[$item['name']]->id . '" data-col="' . $item['col'] . '" data-row="' . $item['row'] . '" data-sizex="' . $item['size_x'] . '" data-sizey="' . $item['size_y'] . '">';
+        echo $widgets[$item['name']]->generate(true);
+        echo '</li>';
+        unset($widgets[$item['name']]);
+    }
+}
+?>
+</ul></div>
+
+<div id="widget_source" class="col">
+<p class="title">Widgets</p>
+<ul class="widgets">
+<?php
+foreach ($widgets as $base => $class) {
+    echo '<li id="' . $class->id . '" data-sizex-open="' . (isset($class->width)? $class->width : 1) . '" data-sizey-open="' . (isset($class->height)? $class->height : 1) . '">' . $class->titleOnly() . '</li>';
+}
+?>
+</ul>
+</div>
+
+</body>
+</html>

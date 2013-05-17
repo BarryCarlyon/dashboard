@@ -1,0 +1,106 @@
+* { font-family: Verdana; }
+body { background: #000000; margin: 0px; padding: 0px; }
+
+table { text-align: center; }
+.ui-icon { float: right; }
+.ui-widget-header, .widget-content { padding: 5px; }
+p { margin: 3px 5px; }
+ul, li { list-style: none; margin: 0px; padding: 0px; }
+
+hr { border: 0px; display: block; clear: both; }
+
+.error { border: 1px solid #FF0000; padding: 5px; text-align: center;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+.error_normal { background: #990000;
+    box-shadow: inset 0px 0px 5px 5px #660000;
+    -moz-box-shadow: inset 0px 0px 5px 5px #660000;
+    -webkit-box-shadow: inset 0px 0px 5px 5px #660000;
+}
+.error_ok { background: #009900; }
+
+a { color: #FFFFFF; }
+.gridster .dragging { border: 1px solid #FFFFFF; }
+.change_col { background-image: url('../icons/edit.png'); }
+.delete-icon { background-image: url('../icons/delete.png'); }
+.toggle { cursor: pointer; }
+.hidden { display: none; }
+
+.gridster { z-index: 1; }
+
+#loading {
+    z-index: 3;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    background-image: url('../icons/loading.gif');
+}
+#loading, .delete-icon {
+    width: 16px;
+    height: 0px;
+    padding-top: 16px;
+    overflow: hidden;
+    display: inline-block;
+    margin: 0px 1px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+}
+
+#initilise {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    color: #FFFFFF;
+    z-index: 2;
+    text-align: center;
+}
+.tcenter { text-align: center; width: 100%; }
+
+.gs_w { background: #3F3F3F; color: #FFFFFF; overflow: hidden; }
+.gs_w .module { padding: 10px; }
+
+h1, h2, h3, h4, h5, h6 { margin: 0px; }
+
+.gs_w {
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    box-shadow: inset 0px 0px 5px 5px #666666;
+    -moz-box-shadow: inset 0px 0px 5px 5px #666666;
+    -webkit-box-shadow: inset 0px 0px 5px 5px #666666;
+}
+
+#widget_source {
+    position: absolute;
+    bottom: 0px;
+
+    margin: 0px 5px;
+    padding: 5px 10px;
+    text-align: center;
+    z-index: 2;
+    background: #FFFFFF;
+
+    border: 1px solid #000000;
+    border-bottom: 0px;
+    -webkit-border-radius: 10px 10px 0px 0px;
+    border-radius: 10px 10px 0px 0px;
+    display: block;
+
+    min-height: 1em;
+    cursor: pointer;
+}
+#widget_source .module {
+    background: #3F3F3F;
+    padding: 3px 5px;
+    color: #FFFFFF;
+    margin: 2px 0px;
+}
+
+.module_control { height: 100%; background: #9F9F9F; }
+
+.removewidget, .editwidget {
+    
+}
+
