@@ -102,7 +102,8 @@ class pingerModule extends module {
 
         $data = array();
         foreach ($names as $index => $name) {
-            $data[$name] = $urls[$index];
+            if ($name && $urls[$index])
+                $data[$name] = $urls[$index];
         }
 
         $this->cacheData(json_encode($data), 'pinger_settings');

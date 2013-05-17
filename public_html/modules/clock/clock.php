@@ -29,6 +29,6 @@ class clockModule extends module {
 	}
 
 	public function ajax() {
-		return '<div class="date tcenter">' . date('d/m/Y', time()) . '</div>';
+		return '<div class="date tcenter">' . date('H:i:s d/m/Y', time()) . '</div>';
 	}
 }

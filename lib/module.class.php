@@ -51,6 +51,12 @@ class Module {
                         }
                         $html .= '<input type="text" name="' . $name . '[]" class="duplicate" value="' . $value . '" style="width: 40%;" /><br />';
                     }
+
+                    if ($data['keys']) {
+                         $html .= '<input type="text" name="' . $data['key_name'] . '[]" class="duplicate" value="" style="width: 40%;" />: ';
+                    }
+                    $html .= '<input type="text" name="' . $name . '[]" class="duplicate" value="" style="width: 40%;" /><br />';
+
                     break;
                 case 'text':
                     $html .= '<input type="text" name="' . $name . '" />';
